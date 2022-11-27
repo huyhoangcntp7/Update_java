@@ -5,7 +5,7 @@
 package repository;
 
 import DomainModel.ChiTietGiay;
-import Unility.JDBC_Helper;
+import Unility.JDBC_HELPER;
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
@@ -24,7 +24,7 @@ public class ChiTietGiay_Repository {
                 + "				 join Size on ChiTietGiay.idSize=Size.id\n"
                 + "				 join ChatLieu on ChiTietGiay.idChatLieu=ChatLieu.id\n"
                 + "				 join HangGiay on ChiTietGiay.idHangGiay=HangGiay.id";
-        ResultSet rs = JDBC_Helper.selectTongQuat(sql);
+        ResultSet rs = JDBC_HELPER.selectTongQuat(sql);
         try {
             while (rs.next()) {
                 String maG = rs.getString("maGiay");
@@ -58,7 +58,7 @@ public class ChiTietGiay_Repository {
                 + "				 join Size on ChiTietGiay.idSize=Size.id\n"
                 + "				 join ChatLieu on ChiTietGiay.idChatLieu=ChatLieu.id\n"
                 + "				 join HangGiay on ChiTietGiay.idHangGiay=HangGiay.id where maGiay=?";
-        ResultSet rs = JDBC_Helper.selectTongQuat(sql, ma);
+        ResultSet rs = JDBC_HELPER.selectTongQuat(sql, ma);
         try {
             while (rs.next()) {
                 String maG = rs.getString("maGiay");
@@ -89,7 +89,7 @@ public class ChiTietGiay_Repository {
                 + "				 join Size on ChiTietGiay.idSize=Size.id\n"
                 + "				 join ChatLieu on ChiTietGiay.idChatLieu=ChatLieu.id\n"
                 + "				 join HangGiay on ChiTietGiay.idHangGiay=HangGiay.id";
-        ResultSet rs = JDBC_Helper.selectTongQuat(sql);
+        ResultSet rs = JDBC_HELPER.selectTongQuat(sql);
         try {
             while (rs.next()) {
                 String maG = rs.getString("maGiay");
@@ -117,7 +117,7 @@ public class ChiTietGiay_Repository {
 
     public static String getIdGiay(String ma) {
         String sql = "select id from ChiTietGiay where maGiay = ?";
-        ResultSet rs = JDBC_Helper.selectTongQuat(sql, ma);
+        ResultSet rs = JDBC_HELPER.selectTongQuat(sql, ma);
         String id = null;
         try {
             while (rs.next()) {
@@ -148,7 +148,7 @@ public class ChiTietGiay_Repository {
                 + "           ,[giaBan]\n"
                 + "           ,[anh])\n"
                 + "     VALUES (?,?,?,?,?,?,?,?,?,?,?,?)";
-        return JDBC_Helper.updateTongQuat(sql, ct.getMaGiay(), ct.getTenGiay(),ct.getMaBarCode() ,ct.getIdChatLieu(), ct.getIdSize(),
+        return JDBC_HELPER.updateTongQuat(sql, ct.getMaGiay(), ct.getTenGiay(),ct.getMaBarCode() ,ct.getIdChatLieu(), ct.getIdSize(),
                 ct.getIdMauSac(), ct.getIdHang(), ct.getNamBaoHanh(), ct.getSoLuong(), ct.getGiaNhap(), ct.getGiaBan(),ct.getAnh());
     }
 
@@ -167,12 +167,12 @@ public class ChiTietGiay_Repository {
                 + "      ,[giaBan] = ?\n"
                 + "      ,[anh] = ?\n"
                 + " WHERE id = ?";
-        return JDBC_Helper.updateTongQuat(sql, ct.getMaGiay(), ct.getTenGiay(),ct.getMaBarCode(), ct.getIdChatLieu(), ct.getIdSize(),
+        return JDBC_HELPER.updateTongQuat(sql, ct.getMaGiay(), ct.getTenGiay(),ct.getMaBarCode(), ct.getIdChatLieu(), ct.getIdSize(),
                 ct.getIdMauSac(), ct.getIdHang(), ct.getNamBaoHanh(), ct.getSoLuong(), ct.getGiaNhap(), ct.getGiaBan(), ct.getAnh(), ct.getId());
     }
 
     public static int xoaChiTietGiay(ChiTietGiay ct) {
         String sql = "delete from ChiTietGiay where id = ?";
-        return JDBC_Helper.updateTongQuat(sql, ct.getId());
+        return JDBC_HELPER.updateTongQuat(sql, ct.getId());
     }
 }

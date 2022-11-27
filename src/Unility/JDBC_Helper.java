@@ -1,73 +1,60 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
 package Unility;
 
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import repository.DB_Context;
+import Unility.DBContext;
+import java.sql.*;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
-/**
- *
- * @author ACER
- */
-public class JDBC_Helper {
-    public static ResultSet selectTongQuat(String sql, Object... paramas){
-        PreparedStatement pstm = null;
-        ResultSet rs = null;
+public class JDBC_HELPER {
+
+    public static ResultSet selectTongQuat(String sql, Object... prams) {
         Connection con = null;
-        
+        PreparedStatement stm = null;
+        ResultSet rs = null;
         try {
-            con = DB_Context.getContext();
-            pstm = con.prepareStatement(sql);
-            for(int i=0; i<paramas.length; i++){
-                pstm.setObject(i+1, paramas[i]);
+            con = DBContext.getConnection();
+            stm = con.prepareStatement(sql);
+            for (int i = 0; i < prams.length; i++) {
+                stm.setObject(i + 1, prams[i]);
             }
-            rs = pstm.executeQuery();
+            rs = stm.executeQuery();
             return rs;
-        } catch (SQLException e) {
-            e.printStackTrace();
-            close(con, pstm, rs);
+
+        } catch (Exception ex) {
+            try {
+                rs.close();
+                stm.close();
+            } catch (SQLException ex1) {
+                ex.printStackTrace();
+            }
+            ex.printStackTrace();
             return null;
         }
     }
-    
-    public static int updateTongQuat(String sql, Object... paramas){
-        PreparedStatement pstm = null;
+
+    public static int updateTongQuat(String sql, Object... params) {
         Connection con = null;
-        
+        PreparedStatement stm = null;
+
         try {
-            con = DB_Context.getContext();
-            pstm = con.prepareStatement(sql);
-            for(int i=0; i<paramas.length; i++){
-                pstm.setObject(i+1, paramas[i]);
+            con = DBContext.getConnection();
+            stm = con.prepareStatement(sql);
+            for (int i = 0; i < params.length; i++) {
+                stm.setObject(i+1, params[i]);
             }
-            return pstm.executeUpdate();
-        } catch (SQLException e) {
-            e.printStackTrace();
-            close(con, pstm);
-            return 0;
-        }
-    }
-    
-    public static void close(Connection con, PreparedStatement pstm){
-        try {
-            pstm.close();
-            con.close();
-        } catch (SQLException ex) {
+            return stm.executeUpdate();
+
+        } catch (Exception ex) {
+            try {
+
+                stm.close();
+                con.close();
+            } catch (SQLException ex1) {
+                ex.printStackTrace();
+            }
             ex.printStackTrace();
+            return -1;
         }
     }
-    
-    public static void close(Connection con, PreparedStatement pstm, ResultSet rs){
-        try {
-            rs.close();
-            close(con, pstm);
-        } catch (SQLException ex) {
-            ex.printStackTrace();
-        }
-    }
+
 }

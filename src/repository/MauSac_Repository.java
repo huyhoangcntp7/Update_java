@@ -5,7 +5,7 @@
 package repository;
 
 import DomainModel.ThuocTinh;
-import Unility.JDBC_Helper;
+import Unility.JDBC_HELPER;
 import java.sql.ResultSet;
 import java.util.ArrayList;
 import java.util.List;
@@ -19,7 +19,7 @@ public class MauSac_Repository {
     public static List<ThuocTinh_View> getAllGiayView(){
         List<ThuocTinh_View> listGV = new ArrayList<>();
         String sql = "select maMauSac, tenMauSac,trangThai from MauSac";
-        ResultSet rs = JDBC_Helper.selectTongQuat(sql);
+        ResultSet rs = JDBC_HELPER.selectTongQuat(sql);
         
         try {
             while(rs.next()){
@@ -39,7 +39,7 @@ public class MauSac_Repository {
     public static ThuocTinh getAllMauSacById(String id) {
         ThuocTinh tt = null;
         String sql = "select id, maMauSac, tenMauSac,trangThai from MauSac where maMauSac = ?";
-        ResultSet rs = JDBC_Helper.selectTongQuat(sql, id);
+        ResultSet rs = JDBC_HELPER.selectTongQuat(sql, id);
 
         try {
             while (rs.next()) {
@@ -58,7 +58,7 @@ public class MauSac_Repository {
 
     public static String getIdMauSac(String ma) {
         String sql = "select id from MauSac where maMauSac = ?";
-        ResultSet rs = JDBC_Helper.selectTongQuat(sql, ma);
+        ResultSet rs = JDBC_HELPER.selectTongQuat(sql, ma);
         String id = null;
         try {
             while (rs.next()) {
@@ -73,7 +73,7 @@ public class MauSac_Repository {
     
     public static String getIdMauSacByTen(String ten) {
         String sql = "select id from MauSac where tenMauSac = ?";
-        ResultSet rs = JDBC_Helper.selectTongQuat(sql, ten);
+        ResultSet rs = JDBC_HELPER.selectTongQuat(sql, ten);
         String id = null;
         try {
             while (rs.next()) {
@@ -88,7 +88,7 @@ public class MauSac_Repository {
     
     public static int themMauSac(ThuocTinh tt) {
         String sql = "insert into MauSac(maMauSac, tenMauSac, trangThai) values (?,?,?)";
-        return JDBC_Helper.updateTongQuat(sql, tt.getMa(), tt.getTen(), tt.getTrangThai());
+        return JDBC_HELPER.updateTongQuat(sql, tt.getMa(), tt.getTen(), tt.getTrangThai());
     }
 
     public static int suaMauSac(ThuocTinh tt, String id) {
@@ -97,11 +97,11 @@ public class MauSac_Repository {
                 + "      ,[tenMauSac] = ?\n"
                 + "      ,[trangThai] = ?\n"
                 + " WHERE id = ?";
-        return JDBC_Helper.updateTongQuat(sql, tt.getMa(), tt.getTen(), tt.getTrangThai(), id);
+        return JDBC_HELPER.updateTongQuat(sql, tt.getMa(), tt.getTen(), tt.getTrangThai(), id);
     }
     
     public static int xoaMauSac(ThuocTinh tt, String id) {
         String sql = "delete from MauSac where id = ?";
-        return JDBC_Helper.updateTongQuat(sql, id);
+        return JDBC_HELPER.updateTongQuat(sql, id);
     }
 }

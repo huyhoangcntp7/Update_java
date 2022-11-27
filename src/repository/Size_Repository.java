@@ -5,7 +5,7 @@
 package repository;
 
 import DomainModel.ThuocTinh;
-import Unility.JDBC_Helper;
+import Unility.JDBC_HELPER;
 import java.sql.ResultSet;
 import java.util.ArrayList;
 import java.util.List;
@@ -19,7 +19,7 @@ public class Size_Repository {
     public static List<ThuocTinh_View> getAllSizeView(){
         List<ThuocTinh_View> listGV = new ArrayList<>();
         String sql = "select maSize, Size,trangThai from Size";
-        ResultSet rs = JDBC_Helper.selectTongQuat(sql);
+        ResultSet rs = JDBC_HELPER.selectTongQuat(sql);
         
         try {
             while(rs.next()){
@@ -39,7 +39,7 @@ public class Size_Repository {
     public static ThuocTinh getAllSizeById(String id) {
         ThuocTinh tt = null;
         String sql = "select id, maSize, Size,trangThai from Size where maSize = ?";
-        ResultSet rs = JDBC_Helper.selectTongQuat(sql, id);
+        ResultSet rs = JDBC_HELPER.selectTongQuat(sql, id);
 
         try {
             while (rs.next()) {
@@ -58,7 +58,7 @@ public class Size_Repository {
 
     public static String getIdSize(String ma) {
         String sql = "select id from Size where maSize = ?";
-        ResultSet rs = JDBC_Helper.selectTongQuat(sql, ma);
+        ResultSet rs = JDBC_HELPER.selectTongQuat(sql, ma);
         String id = null;
         try {
             while (rs.next()) {
@@ -73,7 +73,7 @@ public class Size_Repository {
     
     public static String getIdSizeByTen(String ten) {
         String sql = "select id from Size where Size = ?";
-        ResultSet rs = JDBC_Helper.selectTongQuat(sql, ten);
+        ResultSet rs = JDBC_HELPER.selectTongQuat(sql, ten);
         String id = null;
         try {
             while (rs.next()) {
@@ -88,7 +88,7 @@ public class Size_Repository {
     
     public static int themSize(ThuocTinh tt) {
         String sql = "insert into Size(maSize, Size, trangThai) values (?,?,?)";
-        return JDBC_Helper.updateTongQuat(sql, tt.getMa(), tt.getTen(), tt.getTrangThai());
+        return JDBC_HELPER.updateTongQuat(sql, tt.getMa(), tt.getTen(), tt.getTrangThai());
     }
 
     public static int suaSize(ThuocTinh tt, String id) {
@@ -97,11 +97,11 @@ public class Size_Repository {
                 + "      ,[Size] = ?\n"
                 + "      ,[trangThai] = ?\n"
                 + " WHERE id = ?";
-        return JDBC_Helper.updateTongQuat(sql, tt.getMa(), tt.getTen(), tt.getTrangThai(), id);
+        return JDBC_HELPER.updateTongQuat(sql, tt.getMa(), tt.getTen(), tt.getTrangThai(), id);
     }
     
     public static int xoaGiay(ThuocTinh tt,String id) {
         String sql = "delete from Size where id = ?";
-        return JDBC_Helper.updateTongQuat(sql, id);
+        return JDBC_HELPER.updateTongQuat(sql, id);
     }
 }

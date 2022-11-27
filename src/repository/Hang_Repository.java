@@ -5,7 +5,7 @@
 package repository;
 
 import DomainModel.ThuocTinh;
-import Unility.JDBC_Helper;
+import Unility.JDBC_HELPER;
 import java.sql.ResultSet;
 import java.util.ArrayList;
 import java.util.List;
@@ -19,7 +19,7 @@ public class Hang_Repository {
     public static List<ThuocTinh_View> getAllGiayView(){
         List<ThuocTinh_View> listGV = new ArrayList<>();
         String sql = "select maHangGiay, tenHangGiay,trangThai from HangGiay";
-        ResultSet rs = JDBC_Helper.selectTongQuat(sql);
+        ResultSet rs = JDBC_HELPER.selectTongQuat(sql);
         
         try {
             while(rs.next()){
@@ -39,7 +39,7 @@ public class Hang_Repository {
     public static ThuocTinh getAllHangGiayById(String id) {
         ThuocTinh tt = null;
         String sql = "select id, maHangGiay, tenHangGiay,trangThai from HangGiay where maHangGiay = ?";
-        ResultSet rs = JDBC_Helper.selectTongQuat(sql, id);
+        ResultSet rs = JDBC_HELPER.selectTongQuat(sql, id);
 
         try {
             while (rs.next()) {
@@ -58,7 +58,7 @@ public class Hang_Repository {
     
     public static String getIdHangByTen(String ten) {
         String sql = "select id from HangGiay where tenHangGiay = ?";
-        ResultSet rs = JDBC_Helper.selectTongQuat(sql, ten);
+        ResultSet rs = JDBC_HELPER.selectTongQuat(sql, ten);
         String id = null;
         try {
             while (rs.next()) {
@@ -73,7 +73,7 @@ public class Hang_Repository {
 
     public static String getIdHangGiay(String ma) {
         String sql = "select id from HangGiay where maHangGiay = ?";
-        ResultSet rs = JDBC_Helper.selectTongQuat(sql, ma);
+        ResultSet rs = JDBC_HELPER.selectTongQuat(sql, ma);
         String id = null;
         try {
             while (rs.next()) {
@@ -88,7 +88,7 @@ public class Hang_Repository {
     
     public static int themHangGiay(ThuocTinh tt) {
         String sql = "insert into HangGiay(maHangGiay, tenHangGiay, trangThai) values (?,?,?)";
-        return JDBC_Helper.updateTongQuat(sql, tt.getMa(), tt.getTen(), tt.getTrangThai());
+        return JDBC_HELPER.updateTongQuat(sql, tt.getMa(), tt.getTen(), tt.getTrangThai());
     }
 
     public static int suaHangGiay(ThuocTinh tt, String id) {
@@ -97,11 +97,11 @@ public class Hang_Repository {
                 + "      ,[tenHangGiay] = ?\n"
                 + "      ,[trangThai] = ?\n"
                 + " WHERE id = ?";
-        return JDBC_Helper.updateTongQuat(sql, tt.getMa(), tt.getTen(), tt.getTrangThai(), id);
+        return JDBC_HELPER.updateTongQuat(sql, tt.getMa(), tt.getTen(), tt.getTrangThai(), id);
     }
     
     public static int xoaHangGiay(ThuocTinh tt,String id) {
         String sql = "delete from HangGiay where id = ?";
-        return JDBC_Helper.updateTongQuat(sql, id);
+        return JDBC_HELPER.updateTongQuat(sql, id);
     }
 }
