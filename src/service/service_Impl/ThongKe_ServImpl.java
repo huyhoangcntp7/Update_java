@@ -21,15 +21,9 @@ public class ThongKe_ServImpl implements ThongKe_Serv {
         return ThongKe_Resp.getAll();
     }
 
-    @Override
-    public List<ThongKe_ViewModel> getMaxSoLuongBan() {
-        return ThongKe_Resp.getMaxSoLuongBan();
-    }
+    
 
-    @Override
-    public List<ThongKe_ViewModel> getMaxDoanhThu() {
-        return ThongKe_Resp.getMaxDoanhThu();
-    }
+   
 
     @Override
     public List<ThongKe_ViewModel> getMinSoLuongTon(int sl) {
@@ -84,6 +78,16 @@ public class ThongKe_ServImpl implements ThongKe_Serv {
     @Override
     public int getSoGiayKD() {
          return ThongKe_Resp.getSoGiayKD();
+    }
+
+    @Override
+    public List<ThongKe_ViewModel> getTop5SoLuongBan() {
+         return ThongKe_Resp.getTop5SoLuongBan();
+    }
+
+    @Override
+    public List<ThongKe_ViewModel> getTop5DoanhThu() {
+        return ThongKe_Resp.getTop5DoanhThu();
     }
 
    

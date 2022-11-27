@@ -19,17 +19,29 @@ public class DangNhap_Form extends javax.swing.JFrame {
 
     }
 
+    public void resetLabel() {
+        txtLoiTK.setText("");
+        txtLoiMK.setText("");
+    }
+
     public boolean checkForm() {
         int demLoi = 0;
         if (txtEmail.getText().trim().length() == 0) {
             txtLoiTK.setText("Vui lòng nhập email...");
             demLoi += 1;
+        } else {
+            txtLoiTK.setText("");
+
         }
         if (txtMatKHau.getText().trim().length() == 0.) {
             txtLoiMK.setText("Vui lòng nhập mật khẩu...");
             demLoi += 1;
+        } else {
+            txtLoiMK.setText("");
+
         }
         if (demLoi == 0) {
+            resetLabel();
             return true;
         }
         return false;
@@ -40,12 +52,12 @@ public class DangNhap_Form extends javax.swing.JFrame {
     private void initComponents() {
 
         jLabel1 = new javax.swing.JLabel();
-        jLabel2 = new javax.swing.JLabel();
-        txtMatKHau = new javax.swing.JTextField();
         txtEmail = new javax.swing.JTextField();
         lblDangNhap = new javax.swing.JLabel();
         txtLoiTK = new javax.swing.JTextField();
         txtLoiMK = new javax.swing.JTextField();
+        txtMatKHau = new javax.swing.JPasswordField();
+        lblThoat = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setBackground(new java.awt.Color(255, 255, 255));
@@ -54,23 +66,11 @@ public class DangNhap_Form extends javax.swing.JFrame {
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/Login-Form.png"))); // NOI18N
-        getContentPane().add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 4, 1020, -1));
-
-        jLabel2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/X.png"))); // NOI18N
-        jLabel2.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                jLabel2MouseClicked(evt);
-            }
-        });
-        getContentPane().add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(980, 0, 40, 40));
-
-        txtMatKHau.setBackground(new java.awt.Color(195, 191, 191));
-        txtMatKHau.setBorder(null);
-        getContentPane().add(txtMatKHau, new org.netbeans.lib.awtextra.AbsoluteConstraints(530, 316, 350, 38));
+        getContentPane().add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 4, 1010, -1));
 
         txtEmail.setBackground(new java.awt.Color(195, 191, 191));
         txtEmail.setBorder(null);
-        getContentPane().add(txtEmail, new org.netbeans.lib.awtextra.AbsoluteConstraints(530, 184, 350, 38));
+        getContentPane().add(txtEmail, new org.netbeans.lib.awtextra.AbsoluteConstraints(530, 184, 320, 38));
 
         lblDangNhap.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
@@ -91,30 +91,41 @@ public class DangNhap_Form extends javax.swing.JFrame {
         txtLoiMK.setBorder(null);
         getContentPane().add(txtLoiMK, new org.netbeans.lib.awtextra.AbsoluteConstraints(460, 362, 320, 20));
 
+        txtMatKHau.setBackground(new java.awt.Color(195, 191, 191));
+        txtMatKHau.setBorder(null);
+        getContentPane().add(txtMatKHau, new org.netbeans.lib.awtextra.AbsoluteConstraints(530, 320, 320, 30));
+
+        lblThoat.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                lblThoatMouseClicked(evt);
+            }
+        });
+        getContentPane().add(lblThoat, new org.netbeans.lib.awtextra.AbsoluteConstraints(970, 0, 40, 40));
+
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jLabel2MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel2MouseClicked
-        System.exit(0);
-    }//GEN-LAST:event_jLabel2MouseClicked
-
     private void lblDangNhapMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblDangNhapMouseClicked
         if (checkForm()) {
-            if (dangNhap_Serv.checkDN(txtEmail.getText(), txtMatKHau.getText())) {
+            if (dangNhap_Serv.checkDN(txtEmail.getText(), String.valueOf(txtMatKHau.getPassword()))) {
                 JOptionPane.showMessageDialog(this, "Dang nhap thanh cong");
-                String tenNv = dangNhap_Serv.getThongTin(txtEmail.getText(), txtMatKHau.getText()).getTenNV();
+                String tenNv = dangNhap_Serv.getThongTin(txtEmail.getText(), String.valueOf(txtMatKHau.getPassword())).getTenNV();
                 Menu m = new Menu();
                 m.txtNhanvien.setText(tenNv);
                 m.setVisible(true);
 
             } else {
                 JOptionPane.showMessageDialog(this, "Tài khoản mật khẩu không chính xác");
-
+                resetLabel();
             }
         }
 
 
     }//GEN-LAST:event_lblDangNhapMouseClicked
+
+    private void lblThoatMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblThoatMouseClicked
+        System.exit(0);
+    }//GEN-LAST:event_lblThoatMouseClicked
 
     public static void main(String args[]) {
         /* Set the Nimbus look and feel */
@@ -151,11 +162,11 @@ public class DangNhap_Form extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel jLabel1;
-    private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel lblDangNhap;
+    private javax.swing.JLabel lblThoat;
     private javax.swing.JTextField txtEmail;
     private javax.swing.JTextField txtLoiMK;
     private javax.swing.JTextField txtLoiTK;
-    private javax.swing.JTextField txtMatKHau;
+    private javax.swing.JPasswordField txtMatKHau;
     // End of variables declaration//GEN-END:variables
 }

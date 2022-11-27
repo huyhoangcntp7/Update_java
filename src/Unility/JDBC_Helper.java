@@ -21,12 +21,7 @@ public class JDBC_HELPER {
             return rs;
 
         } catch (Exception ex) {
-            try {
-                rs.close();
-                stm.close();
-            } catch (SQLException ex1) {
-                ex.printStackTrace();
-            }
+            
             ex.printStackTrace();
             return null;
         }
@@ -45,13 +40,7 @@ public class JDBC_HELPER {
             return stm.executeUpdate();
 
         } catch (Exception ex) {
-            try {
-
-                stm.close();
-                con.close();
-            } catch (SQLException ex1) {
-                ex.printStackTrace();
-            }
+            
             ex.printStackTrace();
             return -1;
         }

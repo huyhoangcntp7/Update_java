@@ -59,51 +59,51 @@ import javax.mail.internet.InternetAddress;
 import javax.mail.internet.MimeMessage;
 
 public class Menu extends javax.swing.JFrame implements Runnable, ThreadFactory {
-
+    
     DefaultTableModel dtm = null;
     ThongKe_Serv thongKe_Serv = new ThongKe_ServImpl();
     List<ThongKe_ViewModel> listTKDoanhThu = new ArrayList<>();
     List<ThongKe_ViewModel> listTKSanPham = new ArrayList<>();
     String pattern = "#.###";
     DecimalFormat dcf = (DecimalFormat) NumberFormat.getNumberInstance();
-
+    
     private WebcamPanel panel = null;
     private Webcam webcam = null;
     private Executor exe = Executors.newSingleThreadExecutor(this);
-
+    
     String anhStr = null;
     List<ChiTietGiay_View> listCTG;
     List<ChiTietGiay> listChiTiet;
     List<ThuocTinh_View> listTT;
     DefaultTableModel model;
-
+    
     MauSac_Service mauSV = new MauSac_Service();
     Size_Service sizeSV = new Size_Service();
     ChatLieu_Service chatLieuSV = new ChatLieu_Service();
     Hang_Service hangSV = new Hang_Service();
     ChiTietGiay_Service chiTietGiaYSV = new ChiTietGiay_Service();
-
+    
     public Menu() {
         initComponents();
         dcf.applyPattern(pattern);
         this.setLocationRelativeTo(null);
         pnlTimkiemTong.setVisible(false);
-//        NgayBatDau.setDate(new Date());
-//        NgayKetThuc.setDate(new Date());
+        NgayBatDau.setDate(new Date());
+        NgayKetThuc.setDate(new Date());
         setTable();
-//        listTKSanPham = thongKe_Serv.getAll();
-//        loadTableSanPham(listTKSanPham);
-//        pnlSoLuong.setVisible(false);
-//        listTKDoanhThu = thongKe_Serv.getAllTheoNgayHomNay();
-//        loadTableThongKe(listTKDoanhThu);
-//        setPanelThongKe(thongKe_Serv.getDoanhThuSoLuong().getSoDonHang(), thongKe_Serv.getDoanhThuSoLuong().getDoanhthu());
+        listTKSanPham = thongKe_Serv.getAll();
+        loadTableSanPham(listTKSanPham);
+        pnlSoLuong.setVisible(false);
+        listTKDoanhThu = thongKe_Serv.getAllTheoNgayHomNay();
+        loadTableThongKe(listTKDoanhThu);
+        setPanelThongKe(thongKe_Serv.getDoanhThuSoLuong().getSoDonHang(), thongKe_Serv.getDoanhThuSoLuong().getDoanhthu());
         setPanelSanPham();
-//        initWebcam();
+        
         fillCbbSize();
         fillCbbChatLieu();
         fillCbbHangGiay();
         fillCbbMauSac();
-
+        
     }
 
     //sanpham------------------------------------------------------------------------
@@ -126,22 +126,22 @@ public class Menu extends javax.swing.JFrame implements Runnable, ThreadFactory 
             model.addRow(data);
         }
     }
-
+    
     public void setPanelSanPham() {
-
+        
         lblSoGiayKd.setText(String.valueOf(thongKe_Serv.getSoGiayKD()));
         lblSoGiaySapHet.setText(String.valueOf(thongKe_Serv.getSoGiaySapHet()));
         lblSoGiayHet.setText(String.valueOf(thongKe_Serv.getSoGiayHet()));
-
+        
     }
-
+    
     public ImageIcon resizeImage(String url) {
         ImageIcon imageIcon = new ImageIcon(url);
         Image img = imageIcon.getImage();
         Image newimg = img.getScaledInstance(lblAnh.getWidth(), lblAnh.getHeight(), Image.SCALE_SMOOTH);
         ImageIcon imageIcon1 = new ImageIcon(newimg);
         return imageIcon1;
-
+        
     }
 
 //    private void fillCbbGiay() {
@@ -158,7 +158,7 @@ public class Menu extends javax.swing.JFrame implements Runnable, ThreadFactory 
             cbbMauSac.addItem(tt.getTen());
         }
     }
-
+    
     private void fillCbbSize() {
         cbbSize.removeAllItems();
         listTT = sizeSV.getAllSizeView();
@@ -166,7 +166,7 @@ public class Menu extends javax.swing.JFrame implements Runnable, ThreadFactory 
             cbbSize.addItem(tt.getTen());
         }
     }
-
+    
     private void fillCbbChatLieu() {
         cbbChatLieu.removeAllItems();
         listTT = chatLieuSV.getAllChatLieuView();
@@ -174,7 +174,7 @@ public class Menu extends javax.swing.JFrame implements Runnable, ThreadFactory 
             cbbChatLieu.addItem(tt.getTen());
         }
     }
-
+    
     private void fillCbbHangGiay() {
         cbbHang.removeAllItems();
         listTT = hangSV.getAllHangView();
@@ -182,7 +182,7 @@ public class Menu extends javax.swing.JFrame implements Runnable, ThreadFactory 
             cbbHang.addItem(tt.getTen());
         }
     }
-
+    
     private void fillTableThuocTinhMau() {
         listTT = mauSV.getAllMauView();
         model = (DefaultTableModel) tblThuocTinh.getModel();
@@ -196,7 +196,7 @@ public class Menu extends javax.swing.JFrame implements Runnable, ThreadFactory 
             model.addRow(data);
         }
     }
-
+    
     private void fillTableThuocTinhSize() {
         listTT = sizeSV.getAllSizeView();
         model = (DefaultTableModel) tblThuocTinh.getModel();
@@ -210,7 +210,7 @@ public class Menu extends javax.swing.JFrame implements Runnable, ThreadFactory 
             model.addRow(data);
         }
     }
-
+    
     private void fillTableThuocTinhChatLieu() {
         listTT = chatLieuSV.getAllChatLieuView();
         model = (DefaultTableModel) tblThuocTinh.getModel();
@@ -224,7 +224,7 @@ public class Menu extends javax.swing.JFrame implements Runnable, ThreadFactory 
             model.addRow(data);
         }
     }
-
+    
     private void fillTableThuocTinhHang() {
         listTT = hangSV.getAllHangView();
         model = (DefaultTableModel) tblThuocTinh.getModel();
@@ -254,9 +254,9 @@ public class Menu extends javax.swing.JFrame implements Runnable, ThreadFactory 
             };
             dtm.addRow(rowData);
         }
-
+        
     }
-
+    
     public void loadTableSanPham(List<ThongKe_ViewModel> list) {
         dtm = (DefaultTableModel) tblThongKe1.getModel();
         dtm.setRowCount(0);
@@ -273,18 +273,19 @@ public class Menu extends javax.swing.JFrame implements Runnable, ThreadFactory 
                 t.getDoanhThu(),};
             dtm.addRow(rowData);
         }
-
+        
     }
-
+    
     public void setPanelThongKe(int soDOnHang, double doanhThu) {
-
+        
         lblTongDonHang.setText(String.valueOf(soDOnHang));
         lblDoanhthu.setText(dcf.format(doanhThu));
         lblTongTienDautu.setText(dcf.format(thongKe_Serv.getTienBoRa().getTienDauTu()));
         lblTongTienThuVe.setText(dcf.format(thongKe_Serv.getTienThuVe().getTienThuve()));
-
+        lblTienLai.setText(dcf.format(thongKe_Serv.getTienThuVe().getTienThuve() - thongKe_Serv.getTienBoRa().getTienDauTu()));
+        
     }
-
+    
     private void setTable() {
         tblGiay.getTableHeader().setBackground(new Color(122, 181, 236));
         tblGiay.getTableHeader().setOpaque(false);
@@ -297,9 +298,9 @@ public class Menu extends javax.swing.JFrame implements Runnable, ThreadFactory 
         tblHoaDonCho.getTableHeader().setBackground(new Color(122, 181, 236));
         tblHoaDonGiao.getTableHeader().setBackground(new Color(122, 181, 236));
         tblThuocTinh.getTableHeader().setBackground(new Color(122, 181, 236));
-
+        
     }
-
+    
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
@@ -464,12 +465,13 @@ public class Menu extends javax.swing.JFrame implements Runnable, ThreadFactory 
         cbbNam = new javax.swing.JComboBox<>();
         jLabel61 = new javax.swing.JLabel();
         btnMailDoanhThu = new javax.swing.JButton();
+        jButton2 = new javax.swing.JButton();
         jPanel18 = new javax.swing.JPanel();
         jPanel20 = new javax.swing.JPanel();
         jPanel21 = new javax.swing.JPanel();
         jScrollPane13 = new javax.swing.JScrollPane();
         tblThongKe1 = new javax.swing.JTable();
-        cbbThongke = new javax.swing.JComboBox<>();
+        cbbThongKeSanPham = new javax.swing.JComboBox<>();
         jLabel52 = new javax.swing.JLabel();
         btnXuatFile1 = new javax.swing.JButton();
         jPanel32 = new javax.swing.JPanel();
@@ -1104,7 +1106,7 @@ public class Menu extends javax.swing.JFrame implements Runnable, ThreadFactory 
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(jPanel7, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(jPanel4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addGap(0, 37, Short.MAX_VALUE))
+                .addGap(0, 27, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -1341,6 +1343,7 @@ public class Menu extends javax.swing.JFrame implements Runnable, ThreadFactory 
 
         jPanel13.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Thông tin sản phẩm", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.TOP));
 
+        tblGiay.setBackground(new java.awt.Color(242, 242, 242));
         tblGiay.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
 
@@ -1349,6 +1352,9 @@ public class Menu extends javax.swing.JFrame implements Runnable, ThreadFactory 
                 "Giày", "Màu sắc", "Size", "Chất liệu", "Hãng", "Năm bảo hành", "Số lượng", "Giá Bán", "Ảnh"
             }
         ));
+        tblGiay.setSelectionBackground(new java.awt.Color(255, 204, 204));
+        tblGiay.setShowGrid(false);
+        tblGiay.setShowHorizontalLines(true);
         tblGiay.addContainerListener(new java.awt.event.ContainerAdapter() {
             public void componentRemoved(java.awt.event.ContainerEvent evt) {
                 tblGiayComponentRemoved(evt);
@@ -1485,14 +1491,15 @@ public class Menu extends javax.swing.JFrame implements Runnable, ThreadFactory 
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jPanel13, javax.swing.GroupLayout.PREFERRED_SIZE, 263, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(jPanel10Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(btnThem)
-                    .addComponent(btnSua)
-                    .addComponent(btnMoi)
-                    .addComponent(btnHienThi)
-                    .addComponent(btnThemExcel)
-                    .addComponent(btnXoa, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(16, Short.MAX_VALUE))
+                .addGroup(jPanel10Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(btnXoa, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(jPanel10Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(btnThem)
+                        .addComponent(btnSua)
+                        .addComponent(btnMoi)
+                        .addComponent(btnHienThi)
+                        .addComponent(btnThemExcel)))
+                .addContainerGap(53, Short.MAX_VALUE))
         );
 
         jTabbedPane3.addTab("Sản phẩm", jPanel10);
@@ -1574,7 +1581,7 @@ public class Menu extends javax.swing.JFrame implements Runnable, ThreadFactory 
         jPanel15Layout.setHorizontalGroup(
             jPanel15Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel15Layout.createSequentialGroup()
-                .addGap(34, 272, Short.MAX_VALUE)
+                .addGap(34, 266, Short.MAX_VALUE)
                 .addGroup(jPanel15Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel15Layout.createSequentialGroup()
                         .addGroup(jPanel15Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -1660,6 +1667,8 @@ public class Menu extends javax.swing.JFrame implements Runnable, ThreadFactory 
                 return canEdit [columnIndex];
             }
         });
+        tblThuocTinh.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
+        tblThuocTinh.setSelectionBackground(new java.awt.Color(255, 204, 204));
         tblThuocTinh.setShowGrid(false);
         tblThuocTinh.setShowHorizontalLines(true);
         tblThuocTinh.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -1673,7 +1682,7 @@ public class Menu extends javax.swing.JFrame implements Runnable, ThreadFactory 
         jPanel19.setLayout(jPanel19Layout);
         jPanel19Layout.setHorizontalGroup(
             jPanel19Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jScrollPane8)
+            .addComponent(jScrollPane8, javax.swing.GroupLayout.DEFAULT_SIZE, 1111, Short.MAX_VALUE)
         );
         jPanel19Layout.setVerticalGroup(
             jPanel19Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -1687,10 +1696,11 @@ public class Menu extends javax.swing.JFrame implements Runnable, ThreadFactory 
         jPanel14.setLayout(jPanel14Layout);
         jPanel14Layout.setHorizontalGroup(
             jPanel14Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel14Layout.createSequentialGroup()
-                .addGroup(jPanel14Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(jPanel19, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jPanel15, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+            .addGroup(jPanel14Layout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(jPanel14Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jPanel15, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jPanel19, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap())
         );
         jPanel14Layout.setVerticalGroup(
@@ -1715,14 +1725,12 @@ public class Menu extends javax.swing.JFrame implements Runnable, ThreadFactory 
         );
         pnlSanPhamLayout.setVerticalGroup(
             pnlSanPhamLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jTabbedPane3, javax.swing.GroupLayout.DEFAULT_SIZE, 751, Short.MAX_VALUE)
+            .addComponent(jTabbedPane3, javax.swing.GroupLayout.DEFAULT_SIZE, 711, Short.MAX_VALUE)
         );
 
         pnlTong.add(pnlSanPham, "card3");
 
         jPanel25.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
-
-        jPanel26.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
 
         jLabel27.setText("Bộ lọc: ");
 
@@ -1742,7 +1750,7 @@ public class Menu extends javax.swing.JFrame implements Runnable, ThreadFactory 
         lblTongDonHang.setForeground(new java.awt.Color(0, 51, 51));
         lblTongDonHang.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
 
-        jLabel36.setText("jLabel2");
+        jLabel36.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/bill.png"))); // NOI18N
 
         javax.swing.GroupLayout jPanel27Layout = new javax.swing.GroupLayout(jPanel27);
         jPanel27.setLayout(jPanel27Layout);
@@ -1784,7 +1792,7 @@ public class Menu extends javax.swing.JFrame implements Runnable, ThreadFactory 
         jLabel46.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel46.setText("VND");
 
-        jLabel37.setText("jLabel2");
+        jLabel37.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/cart-9-48.png"))); // NOI18N
 
         javax.swing.GroupLayout jPanel28Layout = new javax.swing.GroupLayout(jPanel28);
         jPanel28.setLayout(jPanel28Layout);
@@ -1817,7 +1825,7 @@ public class Menu extends javax.swing.JFrame implements Runnable, ThreadFactory 
                     .addGroup(jPanel28Layout.createSequentialGroup()
                         .addGap(3, 3, 3)
                         .addComponent(jLabel37)))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 7, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(jLabel46))
         );
 
@@ -1835,7 +1843,7 @@ public class Menu extends javax.swing.JFrame implements Runnable, ThreadFactory 
         jLabel48.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel48.setText("VND");
 
-        jLabel38.setText("jLabel2");
+        jLabel38.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/download__1_-removebg-preview.png"))); // NOI18N
 
         javax.swing.GroupLayout jPanel29Layout = new javax.swing.GroupLayout(jPanel29);
         jPanel29.setLayout(jPanel29Layout);
@@ -1844,15 +1852,17 @@ public class Menu extends javax.swing.JFrame implements Runnable, ThreadFactory 
             .addGroup(jPanel29Layout.createSequentialGroup()
                 .addGroup(jPanel29Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel29Layout.createSequentialGroup()
+                        .addGap(106, 106, 106)
+                        .addComponent(jLabel48, javax.swing.GroupLayout.PREFERRED_SIZE, 43, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(jPanel29Layout.createSequentialGroup()
                         .addGap(17, 17, 17)
                         .addComponent(jLabel38, javax.swing.GroupLayout.PREFERRED_SIZE, 48, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(18, 18, 18)
                         .addGroup(jPanel29Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(lblTongTienDautu, javax.swing.GroupLayout.PREFERRED_SIZE, 88, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jLabel47)))
-                    .addGroup(jPanel29Layout.createSequentialGroup()
-                        .addGap(106, 106, 106)
-                        .addComponent(jLabel48, javax.swing.GroupLayout.PREFERRED_SIZE, 43, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                            .addGroup(jPanel29Layout.createSequentialGroup()
+                                .addComponent(lblTongTienDautu, javax.swing.GroupLayout.PREFERRED_SIZE, 88, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED))
+                            .addComponent(jLabel47))))
                 .addContainerGap(84, Short.MAX_VALUE))
         );
         jPanel29Layout.setVerticalGroup(
@@ -1861,8 +1871,8 @@ public class Menu extends javax.swing.JFrame implements Runnable, ThreadFactory 
                 .addComponent(jLabel47)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel29Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(lblTongTienDautu, javax.swing.GroupLayout.PREFERRED_SIZE, 26, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel38))
+                    .addComponent(jLabel38)
+                    .addComponent(lblTongTienDautu, javax.swing.GroupLayout.PREFERRED_SIZE, 26, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(jLabel48))
         );
@@ -1881,11 +1891,12 @@ public class Menu extends javax.swing.JFrame implements Runnable, ThreadFactory 
         jLabel50.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel50.setText("VND");
 
-        jLabel39.setText("jLabel2");
+        jLabel39.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/download__2_-removebg-preview.png"))); // NOI18N
 
         lblTienLai.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
 
-        jLabel57.setForeground(new java.awt.Color(0, 0, 153));
+        jLabel57.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        jLabel57.setForeground(new java.awt.Color(255, 0, 0));
         jLabel57.setText("Lãi:");
 
         javax.swing.GroupLayout jPanel30Layout = new javax.swing.GroupLayout(jPanel30);
@@ -2097,6 +2108,11 @@ public class Menu extends javax.swing.JFrame implements Runnable, ThreadFactory 
             }
         });
 
+        jButton2.setBackground(new java.awt.Color(51, 102, 0));
+        jButton2.setFont(new java.awt.Font("Segoe UI", 3, 12)); // NOI18N
+        jButton2.setForeground(new java.awt.Color(255, 255, 255));
+        jButton2.setText("RESET");
+
         javax.swing.GroupLayout jPanel26Layout = new javax.swing.GroupLayout(jPanel26);
         jPanel26.setLayout(jPanel26Layout);
         jPanel26Layout.setHorizontalGroup(
@@ -2116,7 +2132,9 @@ public class Menu extends javax.swing.JFrame implements Runnable, ThreadFactory 
                             .addComponent(jPanel17, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addGroup(jPanel26Layout.createSequentialGroup()
                                 .addComponent(jLabel61)
-                                .addGap(311, 311, 311)
+                                .addGap(202, 202, 202)
+                                .addComponent(jButton2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addGap(37, 37, 37)
                                 .addComponent(btnMailDoanhThu)
                                 .addGap(18, 18, 18)
                                 .addComponent(btnXuatFile, javax.swing.GroupLayout.PREFERRED_SIZE, 168, javax.swing.GroupLayout.PREFERRED_SIZE))))
@@ -2135,11 +2153,11 @@ public class Menu extends javax.swing.JFrame implements Runnable, ThreadFactory 
                 .addGroup(jPanel26Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel27)
                     .addComponent(cbbBoloc, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(0, 80, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 124, Short.MAX_VALUE)
                 .addComponent(jPanel27, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(29, 29, 29)
+                .addGap(26, 26, 26)
                 .addComponent(jPanel28, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(33, 33, 33)
+                .addGap(18, 18, 18)
                 .addComponent(jPanel29, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addComponent(jPanel30, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -2148,11 +2166,15 @@ public class Menu extends javax.swing.JFrame implements Runnable, ThreadFactory 
                 .addContainerGap()
                 .addComponent(pnlTimkiemTong, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addGroup(jPanel26Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(btnMailDoanhThu, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(btnXuatFile, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel61))
-                .addGap(12, 12, 12)
+                .addGroup(jPanel26Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel26Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(btnMailDoanhThu, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(btnXuatFile, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(jLabel61))
+                    .addGroup(jPanel26Layout.createSequentialGroup()
+                        .addGap(1, 1, 1)
+                        .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jPanel17, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
 
@@ -2161,14 +2183,16 @@ public class Menu extends javax.swing.JFrame implements Runnable, ThreadFactory 
         jPanel25Layout.setHorizontalGroup(
             jPanel25Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel25Layout.createSequentialGroup()
+                .addContainerGap()
                 .addComponent(jPanel26, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 26, Short.MAX_VALUE))
+                .addContainerGap(26, Short.MAX_VALUE))
         );
         jPanel25Layout.setVerticalGroup(
             jPanel25Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel25Layout.createSequentialGroup()
-                .addGap(0, 0, Short.MAX_VALUE)
-                .addComponent(jPanel26, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+            .addGroup(jPanel25Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jPanel26, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addContainerGap())
         );
 
         jTabbedPane4.addTab("Doanh thu", jPanel25);
@@ -2219,10 +2243,10 @@ public class Menu extends javax.swing.JFrame implements Runnable, ThreadFactory 
                 .addContainerGap())
         );
 
-        cbbThongke.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Tat ca", "Top 5 san pham ban nhieu nhat", "Top 5 san pham doanh thu cao nhat", "Danh sach san pham co so luong ton thap" }));
-        cbbThongke.addItemListener(new java.awt.event.ItemListener() {
+        cbbThongKeSanPham.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Tat ca", "Top 5 san pham ban nhieu nhat", "Top 5 san pham doanh thu cao nhat", "Danh sach san pham co so luong ton thap" }));
+        cbbThongKeSanPham.addItemListener(new java.awt.event.ItemListener() {
             public void itemStateChanged(java.awt.event.ItemEvent evt) {
-                cbbThongkeItemStateChanged(evt);
+                cbbThongKeSanPhamItemStateChanged(evt);
             }
         });
 
@@ -2248,7 +2272,7 @@ public class Menu extends javax.swing.JFrame implements Runnable, ThreadFactory 
         lblSoGiayKd.setForeground(new java.awt.Color(0, 51, 51));
         lblSoGiayKd.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
 
-        jLabel40.setText("jLabel2");
+        jLabel40.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/bill.png"))); // NOI18N
 
         javax.swing.GroupLayout jPanel32Layout = new javax.swing.GroupLayout(jPanel32);
         jPanel32.setLayout(jPanel32Layout);
@@ -2272,11 +2296,11 @@ public class Menu extends javax.swing.JFrame implements Runnable, ThreadFactory 
                 .addComponent(jLabel53)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(lblSoGiayKd, javax.swing.GroupLayout.PREFERRED_SIZE, 26, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 0, Short.MAX_VALUE))
+                .addGap(0, 32, Short.MAX_VALUE))
             .addGroup(jPanel32Layout.createSequentialGroup()
                 .addGap(15, 15, 15)
                 .addComponent(jLabel40)
-                .addContainerGap(41, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         jPanel33.setBackground(new java.awt.Color(255, 255, 153));
@@ -2288,7 +2312,7 @@ public class Menu extends javax.swing.JFrame implements Runnable, ThreadFactory 
         lblSoGiayHet.setForeground(new java.awt.Color(0, 51, 51));
         lblSoGiayHet.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
 
-        jLabel41.setText("jLabel2");
+        jLabel41.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/cart-9-48.png"))); // NOI18N
 
         javax.swing.GroupLayout jPanel33Layout = new javax.swing.GroupLayout(jPanel33);
         jPanel33.setLayout(jPanel33Layout);
@@ -2297,13 +2321,13 @@ public class Menu extends javax.swing.JFrame implements Runnable, ThreadFactory 
             .addGroup(jPanel33Layout.createSequentialGroup()
                 .addGap(14, 14, 14)
                 .addComponent(jLabel41, javax.swing.GroupLayout.PREFERRED_SIZE, 48, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(27, 27, 27)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(lblSoGiayHet, javax.swing.GroupLayout.PREFERRED_SIZE, 75, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel33Layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addContainerGap(60, Short.MAX_VALUE)
                 .addComponent(jLabel54)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(60, Short.MAX_VALUE))
         );
         jPanel33Layout.setVerticalGroup(
             jPanel33Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -2311,12 +2335,12 @@ public class Menu extends javax.swing.JFrame implements Runnable, ThreadFactory 
                 .addGroup(jPanel33Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel33Layout.createSequentialGroup()
                         .addComponent(jLabel54)
-                        .addGap(12, 12, 12)
+                        .addGap(18, 18, 18)
                         .addComponent(lblSoGiayHet, javax.swing.GroupLayout.PREFERRED_SIZE, 26, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(jPanel33Layout.createSequentialGroup()
                         .addGap(19, 19, 19)
                         .addComponent(jLabel41)))
-                .addContainerGap(37, Short.MAX_VALUE))
+                .addContainerGap(31, Short.MAX_VALUE))
         );
 
         jPanel34.setBackground(new java.awt.Color(153, 255, 153));
@@ -2328,7 +2352,7 @@ public class Menu extends javax.swing.JFrame implements Runnable, ThreadFactory 
         lblSoGiaySapHet.setForeground(new java.awt.Color(0, 51, 51));
         lblSoGiaySapHet.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
 
-        jLabel58.setText("jLabel2");
+        jLabel58.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/download__1_-removebg-preview.png"))); // NOI18N
 
         javax.swing.GroupLayout jPanel34Layout = new javax.swing.GroupLayout(jPanel34);
         jPanel34.setLayout(jPanel34Layout);
@@ -2352,7 +2376,7 @@ public class Menu extends javax.swing.JFrame implements Runnable, ThreadFactory 
                 .addGroup(jPanel34Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(lblSoGiaySapHet, javax.swing.GroupLayout.PREFERRED_SIZE, 26, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel58))
-                .addContainerGap(34, Short.MAX_VALUE))
+                .addContainerGap(25, Short.MAX_VALUE))
         );
 
         jLabel60.setFont(new java.awt.Font("Segoe UI", 3, 18)); // NOI18N
@@ -2369,6 +2393,8 @@ public class Menu extends javax.swing.JFrame implements Runnable, ThreadFactory 
                 btnMailSanPhamActionPerformed(evt);
             }
         });
+
+        pnlSoLuong.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
 
         jLabel55.setText("<=");
 
@@ -2422,7 +2448,7 @@ public class Menu extends javax.swing.JFrame implements Runnable, ThreadFactory 
                     .addGroup(jPanel20Layout.createSequentialGroup()
                         .addComponent(jLabel52, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(40, 40, 40)
-                        .addComponent(cbbThongke, javax.swing.GroupLayout.PREFERRED_SIZE, 284, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(cbbThongKeSanPham, javax.swing.GroupLayout.PREFERRED_SIZE, 284, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(pnlSoLuong, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
@@ -2450,7 +2476,7 @@ public class Menu extends javax.swing.JFrame implements Runnable, ThreadFactory 
                         .addGap(33, 33, 33)
                         .addGroup(jPanel20Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jLabel52)
-                            .addComponent(cbbThongke, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(cbbThongKeSanPham, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGap(67, 67, 67)
                         .addGroup(jPanel20Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(btnXuatFile1, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -2465,11 +2491,11 @@ public class Menu extends javax.swing.JFrame implements Runnable, ThreadFactory 
                 .addGroup(jPanel20Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel20Layout.createSequentialGroup()
                         .addComponent(jPanel32, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(32, 32, 32)
+                        .addGap(33, 33, 33)
                         .addComponent(jPanel33, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(41, 41, 41)
+                        .addGap(26, 26, 26)
                         .addComponent(jPanel34, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addContainerGap(52, Short.MAX_VALUE))
+                        .addContainerGap(61, Short.MAX_VALUE))
                     .addGroup(jPanel20Layout.createSequentialGroup()
                         .addComponent(jPanel21, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addGap(21, 21, 21))))
@@ -2482,13 +2508,13 @@ public class Menu extends javax.swing.JFrame implements Runnable, ThreadFactory 
             .addGap(0, 1120, Short.MAX_VALUE)
             .addGroup(jPanel18Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(jPanel18Layout.createSequentialGroup()
-                    .addGap(0, 0, Short.MAX_VALUE)
+                    .addGap(0, 16, Short.MAX_VALUE)
                     .addComponent(jPanel20, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGap(0, 0, Short.MAX_VALUE)))
+                    .addGap(0, 16, Short.MAX_VALUE)))
         );
         jPanel18Layout.setVerticalGroup(
             jPanel18Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 718, Short.MAX_VALUE)
+            .addGap(0, 678, Short.MAX_VALUE)
             .addGroup(jPanel18Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(jPanel18Layout.createSequentialGroup()
                     .addGap(0, 0, Short.MAX_VALUE)
@@ -2505,7 +2531,7 @@ public class Menu extends javax.swing.JFrame implements Runnable, ThreadFactory 
             .addGroup(pnlThongKeLayout.createSequentialGroup()
                 .addGap(15, 15, 15)
                 .addComponent(jTabbedPane4, javax.swing.GroupLayout.PREFERRED_SIZE, 1120, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(15, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         pnlThongKeLayout.setVerticalGroup(
             pnlThongKeLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -2618,7 +2644,7 @@ public class Menu extends javax.swing.JFrame implements Runnable, ThreadFactory 
                 .addGap(46, 46, 46)
                 .addComponent(jTextField10, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jScrollPane7, javax.swing.GroupLayout.DEFAULT_SIZE, 303, Short.MAX_VALUE)
+                .addComponent(jScrollPane7, javax.swing.GroupLayout.DEFAULT_SIZE, 263, Short.MAX_VALUE)
                 .addGap(80, 80, 80))
         );
 
@@ -2628,7 +2654,7 @@ public class Menu extends javax.swing.JFrame implements Runnable, ThreadFactory 
             pnlGiamGiaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(pnlGiamGiaLayout.createSequentialGroup()
                 .addComponent(jPanel16, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 51, Short.MAX_VALUE))
+                .addGap(0, 41, Short.MAX_VALUE))
         );
         pnlGiamGiaLayout.setVerticalGroup(
             pnlGiamGiaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -2886,7 +2912,7 @@ public class Menu extends javax.swing.JFrame implements Runnable, ThreadFactory 
 
         pnlTong.add(pnlNhanvien, "card2");
 
-        getContentPane().add(pnlTong, new org.netbeans.lib.awtextra.AbsoluteConstraints(178, 50, 1150, 670));
+        getContentPane().add(pnlTong, new org.netbeans.lib.awtextra.AbsoluteConstraints(188, 50, 1140, 670));
 
         lblThoat.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
@@ -2993,7 +3019,7 @@ public class Menu extends javax.swing.JFrame implements Runnable, ThreadFactory 
         jLabel1.setIcon(img);
         pnlBanHang.setVisible(false);
         pnlSanPham.setVisible(false);
-
+        
         pnlGiamGia.setVisible(false);
         pnlNhanvien.setVisible(false);
         pnlThongKe.setVisible(true);
@@ -3006,7 +3032,7 @@ public class Menu extends javax.swing.JFrame implements Runnable, ThreadFactory 
         pnlSanPham.setVisible(false);
         pnlThongKe.setVisible(false);
         pnlNhanvien.setVisible(false);
-
+        
         pnlGiamGia.setVisible(true);
     }//GEN-LAST:event_lblGiamGiaMouseClicked
 
@@ -3083,7 +3109,7 @@ public class Menu extends javax.swing.JFrame implements Runnable, ThreadFactory 
             lblAnh.setIcon(resizeImage(String.valueOf(anhStr)));
             System.out.println(anhStr);
         } catch (Exception ex) {
-
+            
             ex.printStackTrace();
         }
     }//GEN-LAST:event_lblAnhMouseClicked
@@ -3139,7 +3165,7 @@ public class Menu extends javax.swing.JFrame implements Runnable, ThreadFactory 
         //        listChiTiet.get(row).getId();
         String id = chiTietGiaYSV.getIdGiay(txtMaGiay.getText());
         ct.setId(id);
-
+        
         int row1 = chiTietGiaYSV.suaChiTietGiay(ct);
         if (row1 > 0) {
             JOptionPane.showMessageDialog(this, "Update thanh cong");
@@ -3158,7 +3184,7 @@ public class Menu extends javax.swing.JFrame implements Runnable, ThreadFactory 
         //        listChiTiet.get(row).getId();chiTietGiaYSV.getIdGiay(txtMaGiay.getText());chiTietGiaYSV.getIdGiay();
         String id = chiTietGiaYSV.getIdGiay(txtMaGiay.getText());
         ct.setId(id);
-
+        
         int row1 = chiTietGiaYSV.xoaChiTietGiay(ct);
         if (row1 > 0) {
             JOptionPane.showMessageDialog(this, "Update thanh cong");
@@ -3297,111 +3323,116 @@ public class Menu extends javax.swing.JFrame implements Runnable, ThreadFactory 
         }
     }//GEN-LAST:event_tblThuocTinhMouseClicked
 
-    private void cbbThongkeItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_cbbThongkeItemStateChanged
-        if (cbbThongke.getSelectedIndex() == 0) {
+    private void cbbThongKeSanPhamItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_cbbThongKeSanPhamItemStateChanged
+        if (cbbThongKeSanPham.getSelectedIndex() == 0) {
             listTKSanPham = thongKe_Serv.getAll();
             loadTableSanPham(listTKSanPham);
-        } else if (cbbThongke.getSelectedIndex() == 1) {
-            listTKSanPham = thongKe_Serv.getMaxSoLuongBan();
+        } else if (cbbThongKeSanPham.getSelectedIndex() == 1) {
+            listTKSanPham = thongKe_Serv.getTop5SoLuongBan();
             loadTableSanPham(listTKSanPham);
-        } else if (cbbThongke.getSelectedIndex() == 2) {
-            listTKSanPham = thongKe_Serv.getMaxDoanhThu();
+        } else if (cbbThongKeSanPham.getSelectedIndex() == 2) {
+            listTKSanPham = thongKe_Serv.getTop5DoanhThu();
             loadTableSanPham(listTKSanPham);
         } else {
             pnlSoLuong.setVisible(true);
-
+            
         }
-    }//GEN-LAST:event_cbbThongkeItemStateChanged
+    }//GEN-LAST:event_cbbThongKeSanPhamItemStateChanged
 
     private void btnXuatFile1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnXuatFile1ActionPerformed
-
+        
         XSSFWorkbook workbook = new XSSFWorkbook();
         XSSFSheet sheet = workbook.createSheet("danh sach");
         //
         XSSFRow row = null;
         Cell cell = null;
         row = sheet.createRow(2);
-
+        
         cell = row.createCell(0, CellType.STRING);
         cell.setCellValue("Mã giày");
-
+        
         cell = row.createCell(1, CellType.STRING);
         cell.setCellValue("Tên giày");
-
+        
         cell = row.createCell(2, CellType.STRING);
         cell.setCellValue("Màu sắc");
-
+        
         cell = row.createCell(3, CellType.STRING);
         cell.setCellValue("Size");
-
+        
         cell = row.createCell(4, CellType.STRING);
         cell.setCellValue("Chất liệu");
-
+        
         cell = row.createCell(5, CellType.STRING);
         cell.setCellValue("Số lượng tồn");
-
+        
         cell = row.createCell(6, CellType.STRING);
         cell.setCellValue("Số lượng bán");
-
+        
         cell = row.createCell(7, CellType.STRING);
         cell.setCellValue("Đơn giá");
-
+        
         cell = row.createCell(8, CellType.STRING);
         cell.setCellValue("Doanh thu");
-
+        
         row = sheet.createRow(0);
         cell = row.createCell(3, CellType.STRING);
-
+        
         JFileChooser f = new JFileChooser("");
         f.setDialogTitle("Mở  file");
         f.showSaveDialog(null);
-
+        
         File file = new File(f.getSelectedFile() + ".xlsx");
+        
+        if (f.getSelectedFile() == null) {
+            return;
+        }
         for (int i = 0; i < listTKSanPham.size(); i++) {
             //Modelbook book =listTK.get(i);
             row = sheet.createRow(3 + i);
-
+            
             cell = row.createCell(0, CellType.STRING);
             cell.setCellValue(listTKSanPham.get(i).getMaSp());
-
+            
             cell = row.createCell(1, CellType.STRING);
             cell.setCellValue(listTKSanPham.get(i).getTenSp());
-
+            
             cell = row.createCell(2, CellType.STRING);
             cell.setCellValue(listTKSanPham.get(i).getMau());
-
+            
             cell = row.createCell(3, CellType.STRING);
             cell.setCellValue(listTKSanPham.get(i).getSize());
-
+            
             cell = row.createCell(4, CellType.STRING);
             cell.setCellValue(listTKSanPham.get(i).getChatLieu());
-
+            
             cell = row.createCell(5, CellType.STRING);
             cell.setCellValue(listTKSanPham.get(i).getSlTon());
-
+            
             cell = row.createCell(6, CellType.STRING);
             cell.setCellValue(listTKSanPham.get(i).getSlBan());
-
+            
             cell = row.createCell(7, CellType.STRING);
             cell.setCellValue(listTKSanPham.get(i).getDonGia());
-
+            
             cell = row.createCell(8, CellType.STRING);
             cell.setCellValue(listTKSanPham.get(i).getDoanhThu());
-
+            
         }
-
+        
         try {
             FileOutputStream fis = new FileOutputStream(file);
             workbook.write(fis);
+            JOptionPane.showMessageDialog(this, "in thanh cong D:\\danhsach");
             fis.close();
         } catch (FileNotFoundException ex) {
             ex.printStackTrace();
-
+            
         } catch (IOException ex) {
             ex.printStackTrace();
         }
+        
 
-        JOptionPane.showMessageDialog(this, "in thanh cong D:\\danhsach");
     }//GEN-LAST:event_btnXuatFile1ActionPerformed
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
@@ -3420,14 +3451,14 @@ public class Menu extends javax.swing.JFrame implements Runnable, ThreadFactory 
             lblLoi.setText("Vui lòng nhập số nguyen!");
             return;
         }
-
+        
         if (slInt <= 0) {
             lblLoi.setText("Vui lòng nhập số lớn hơn 0!");
             return;
         } else {
             lblLoi.setText("");
         }
-
+        
         listTKSanPham = thongKe_Serv.getMinSoLuongTon(slInt);
         loadTableSanPham(listTKSanPham);
     }//GEN-LAST:event_jButton1ActionPerformed
@@ -3442,7 +3473,7 @@ public class Menu extends javax.swing.JFrame implements Runnable, ThreadFactory 
             pnlTimkiemTong.setVisible(true);
             pnlTheoNam.setVisible(false);
             pnlTheoNgay.setVisible(true);
-
+            
         } else {
             pnlTimkiemTong.setVisible(true);
             pnlTheoNgay.setVisible(false);
@@ -3451,62 +3482,62 @@ public class Menu extends javax.swing.JFrame implements Runnable, ThreadFactory 
     }//GEN-LAST:event_cbbBolocItemStateChanged
 
     private void btnXuatFileActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnXuatFileActionPerformed
-
+        
         XSSFWorkbook workbook = new XSSFWorkbook();
         XSSFSheet sheet = workbook.createSheet("danh sach");
         //
         XSSFRow row = null;
         Cell cell = null;
         row = sheet.createRow(2);
-
+        
         cell = row.createCell(0, CellType.STRING);
         cell.setCellValue("Mã giày");
-
+        
         cell = row.createCell(1, CellType.STRING);
         cell.setCellValue("Tên giày");
-
+        
         cell = row.createCell(2, CellType.STRING);
         cell.setCellValue("Số lượng bán");
-
+        
         cell = row.createCell(3, CellType.STRING);
         cell.setCellValue("Doanh thu");
-
+        
         cell = row.createCell(4, CellType.STRING);
         cell.setCellValue("Ngày bán");
-
+        
         row = sheet.createRow(0);
         cell = row.createCell(3, CellType.STRING);
-
+        
         for (int i = 0; i < listTKDoanhThu.size(); i++) {
             //Modelbook book =listTK.get(i);
             row = sheet.createRow(3 + i);
-
+            
             cell = row.createCell(0, CellType.STRING);
             cell.setCellValue(listTKDoanhThu.get(i).getMaSp());
-
+            
             cell = row.createCell(1, CellType.STRING);
             cell.setCellValue(listTKDoanhThu.get(i).getTenSp());
-
+            
             cell = row.createCell(2, CellType.STRING);
             cell.setCellValue(listTKDoanhThu.get(i).getSlBan());
-
+            
             cell = row.createCell(3, CellType.STRING);
             cell.setCellValue(listTKDoanhThu.get(i).getDoanhThu());
-
+            
             cell = row.createCell(4, CellType.STRING);
             cell.setCellValue(listTKDoanhThu.get(i).getNgaytao());
-
+            
         }
-
+        
         JFileChooser f = new JFileChooser("D:\\");
         f.setDialogTitle("Mở  file");
         f.showSaveDialog(null);
-
+        
         File file = new File(f.getSelectedFile() + ".xlsx");
-        if (file == null) {
+        if (f.getSelectedFile() == null) {
             return;
         }
-        System.out.println(file);
+        
         try {
             FileOutputStream fis = new FileOutputStream(file);
             workbook.write(fis);
@@ -3514,7 +3545,7 @@ public class Menu extends javax.swing.JFrame implements Runnable, ThreadFactory 
             fis.close();
         } catch (FileNotFoundException ex) {
             ex.printStackTrace();
-
+            
         } catch (IOException ex) {
             ex.printStackTrace();
         }
@@ -3557,10 +3588,10 @@ public class Menu extends javax.swing.JFrame implements Runnable, ThreadFactory 
             JOptionPane.showMessageDialog(this, "Địa chỉ mail không hợp lệ");
             return;
         }
-
+        
         final String username = "hoangnhph24464@fpt.edu.vn";
         final String password = "Hh30052002";
-
+        
         Properties prop = new Properties();
         prop.put("mail.smtp.host", "smtp.gmail.com");
         prop.put("mail.smtp.port", "587");
@@ -3573,9 +3604,9 @@ public class Menu extends javax.swing.JFrame implements Runnable, ThreadFactory 
                 return new PasswordAuthentication(username, password);
             }
         });
-
+        
         try {
-
+            
             MimeMessage message = new MimeMessage(session);
             message.setFrom(new InternetAddress("hoangnhph24464@fpt.edu.com"));
             message.setRecipients(
@@ -3587,22 +3618,22 @@ public class Menu extends javax.swing.JFrame implements Runnable, ThreadFactory 
                     + "Doanh thu: " + lblDoanhthu.getText() + "\n"
                     + "Tiền đầu tư: :" + lblTongTienDautu.getText() + "\n"
                     + "Tiền thu về: " + lblTongTienThuVe.getText());
-
+            
             try {
                 Transport.send(message);
             } catch (MessagingException messagingException) {
                 JOptionPane.showMessageDialog(this, "Địa chỉ email không đúng");
-
+                
                 return;
-
+                
             }
-
+            
             JOptionPane.showMessageDialog(this, "Gửi thành công");
-
+            
         } catch (AddressException ex) {
             System.out.println("Địa chỉ email không đúng");
             return;
-
+            
         } catch (MessagingException e) {
             System.out.println("ahihi3");
             e.printStackTrace();
@@ -3619,10 +3650,10 @@ public class Menu extends javax.swing.JFrame implements Runnable, ThreadFactory 
             JOptionPane.showMessageDialog(this, "Địa chỉ mail không hợp lệ");
             return;
         }
-
+        
         final String username = "hoangnhph24464@fpt.edu.vn";
         final String password = "Hh30052002";
-
+        
         Properties prop = new Properties();
         prop.put("mail.smtp.host", "smtp.gmail.com");
         prop.put("mail.smtp.port", "587");
@@ -3635,9 +3666,9 @@ public class Menu extends javax.swing.JFrame implements Runnable, ThreadFactory 
                 return new PasswordAuthentication(username, password);
             }
         });
-
+        
         try {
-
+            
             MimeMessage message = new MimeMessage(session);
             message.setFrom(new InternetAddress("hoangnhph24464@fpt.edu.com"));
             message.setRecipients(
@@ -3648,19 +3679,19 @@ public class Menu extends javax.swing.JFrame implements Runnable, ThreadFactory 
             message.setText("Số giày đang kinh doanh: " + lblSoGiayKd.getText() + "\n"
                     + "Số giày đã hết hàng: " + lblSoGiayHet.getText() + "\n"
                     + "Số giày sắp hết hàng: :" + lblSoGiaySapHet.getText() + "\n");
-
+            
             try {
                 Transport.send(message);
             } catch (MessagingException messagingException) {
                 JOptionPane.showMessageDialog(this, "Địa chỉ email không đúng");
                 return;
             }
-
+            
             JOptionPane.showMessageDialog(this, "Gửi thành công");
-
+            
         } catch (AddressException ex) {
             JOptionPane.showMessageDialog(this, "Địa chỉ email không đúng");
-
+            
             ex.printStackTrace();
         } catch (MessagingException e) {
             System.out.println("ahihi3");
@@ -3671,7 +3702,7 @@ public class Menu extends javax.swing.JFrame implements Runnable, ThreadFactory 
     private void pnlWebCamMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_pnlWebCamMouseClicked
         
         initWebcam();
-        
+
     }//GEN-LAST:event_pnlWebCamMouseClicked
 
     private void jPanel12MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jPanel12MouseClicked
@@ -3693,7 +3724,7 @@ public class Menu extends javax.swing.JFrame implements Runnable, ThreadFactory 
         lblAnh.setIcon(null);
         txtMaBarCode.setText("");
     }
-
+    
     private void showDeTaiChiTietGiay(ChiTietGiay_View ct) {
         txtMaGiay.setText(ct.getMaGiay());
         txtTenGiay.setText(ct.getTenGiay());
@@ -3710,7 +3741,7 @@ public class Menu extends javax.swing.JFrame implements Runnable, ThreadFactory 
         String icon = tblGiay.getValueAt(row, 8).toString();
         lblAnh.setIcon(resizeImage(String.valueOf(icon)));
     }
-
+    
     private void showDeTaiThuocTinh(ThuocTinh tt) {
 //        txtIdThuocTinh.setText(tt.getId());
         txtMaThuocTinh.setText(tt.getMa());
@@ -3721,30 +3752,33 @@ public class Menu extends javax.swing.JFrame implements Runnable, ThreadFactory 
             ckbTrangThai.setSelected(false);
         }
     }
-
+    
     private ThuocTinh getFormThuocTinh() {
         String ma = txtMaThuocTinh.getText();
         String ten = txtTenThuocTinh.getText();
         int trangThai = ckbTrangThai.isSelected() ? 1 : 2;
-
+        
         ThuocTinh tt = new ThuocTinh(null, ma, ten, trangThai);
         return tt;
     }
-
+    
     private void initWebcam() {
         Dimension size = WebcamResolution.QVGA.getSize();
         webcam = Webcam.getWebcams().get(0);
-        webcam.setViewSize(size);
-
+        try {
+            webcam.setViewSize(size);
+        } catch (Exception e) {
+            return;
+        }
+        
         panel = new WebcamPanel(webcam);
         panel.setPreferredSize(size);
         panel.setFPSDisplayed(true);
-
+        
         pnlWebCam.add(panel, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 380, 280));
         exe.execute(this);
     }
     
-
     private ChiTietGiay getFormChiTietGiay() {
 //        String maG = txtMaGiay.getText();
 //        String tenG = txtTenGiay.getText();
@@ -3776,7 +3810,7 @@ public class Menu extends javax.swing.JFrame implements Runnable, ThreadFactory 
         ct.setAnh(anhStr);
         return ct;
     }
-
+    
     @Override
     public void run() {
         do {
@@ -3785,34 +3819,34 @@ public class Menu extends javax.swing.JFrame implements Runnable, ThreadFactory 
             } catch (InterruptedException e) {
 //                e.printStackTrace();
             }
-
+            
             Result rs = null;
             BufferedImage image = null;
-
+            
             if (webcam.isOpen()) {
                 if ((image = webcam.getImage()) == null) {
                     continue;
                 }
             }
-
+            
             LuminanceSource source = new BufferedImageLuminanceSource(image);
-
+            
             BinaryBitmap bitmap = new BinaryBitmap(new HybridBinarizer(source));
-
+            
             try {
                 rs = new MultiFormatReader().decode(bitmap);
             } catch (NotFoundException notFoundException) {
 //                notFoundException.printStackTrace();
             }
-
+            
             if (rs != null) {
                 txtMaBarCode.setText(rs.getText());
                 txtTimKiem.setText(rs.getText());
             }
-
+            
         } while (true);
     }
-
+    
     @Override
     public Thread newThread(Runnable r) {
         Thread t = new Thread(r, "My Thread");
@@ -3886,10 +3920,11 @@ public class Menu extends javax.swing.JFrame implements Runnable, ThreadFactory 
     private javax.swing.JComboBox<String> cbbMauSac;
     private javax.swing.JComboBox<String> cbbNam;
     private javax.swing.JComboBox<String> cbbSize;
-    private javax.swing.JComboBox<String> cbbThongke;
+    private javax.swing.JComboBox<String> cbbThongKeSanPham;
     private javax.swing.JComboBox<String> cboChucVu3;
     private javax.swing.JCheckBox ckbTrangThai;
     private javax.swing.JButton jButton1;
+    private javax.swing.JButton jButton2;
     private javax.swing.JButton jButton3;
     private javax.swing.JButton jButton4;
     private javax.swing.JButton jButton5;

@@ -20,9 +20,9 @@ public interface ThongKe_Serv {
 
     List<ThongKe_ViewModel> getAllTheoKhoangNgay(String n1, String n2);
 
-    List<ThongKe_ViewModel> getMaxSoLuongBan();
+    List<ThongKe_ViewModel> getTop5SoLuongBan();
 
-    List<ThongKe_ViewModel> getMaxDoanhThu();
+    List<ThongKe_ViewModel> getTop5DoanhThu();
 
     List<ThongKe_ViewModel> getMinSoLuongTon(int sl);
 

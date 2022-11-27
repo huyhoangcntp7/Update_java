@@ -12,14 +12,13 @@ public class ThongKe_Resp {
 
     public static List<ThongKe_ViewModel> getAllTheoNgayHomNay() {
         List<ThongKe_ViewModel> list = new ArrayList<>();
-        String sql = "select Giay.maGiay,tenGiay,ChiTietGiay.soLuong,sum(HoaDonChiTiet.soLuong) as'So luong ban',sum(donGia*HoaDonChiTiet.soLuong) as 'Doanh thu', ngayTao from ChiTietGiay inner join ChatLieu on ChiTietGiay.idChatLieu=ChatLieu.id\n"
-                + "               					  inner join Size on ChiTietGiay.idSize=Size.id\n"
-                + "                					  inner join Giay on ChiTietGiay.idGiay=Giay.id\n"
-                + "               						  inner join MauSac on ChiTietGiay.idMauSac=MauSac.id\n"
-                + "                						  inner join HoaDonChiTiet on ChiTietGiay.id=HoaDonChiTiet.idChiTietGiay\n"
-                + "										  inner join HoaDon on HoaDonChiTiet.idHoaDon=HoaDon.id\n"
-                + "where ngayTao=CONCAT(Year(GETDATE()),'-',Month(GETDATE()),'-',DAY(GETDATE()))"
-                + "                Group by Giay.maGiay,tenGiay,tenMauSac,Size,tenChatLieu,ChiTietGiay.soLuong,donGia,ngayTao";
+        String sql = " select maGiay,tenGiay,tenMauSac,Size,tenChatLieu,ChiTietGiay.soLuong,donGia,sum(HoaDonChiTiet.soLuong) as'So luong ban',sum(donGia*HoaDonChiTiet.soLuong) as 'Doanh thu',ngayTao from ChiTietGiay inner join ChatLieu on ChiTietGiay.idChatLieu=ChatLieu.id\n"
+                + "                     inner join Size on ChiTietGiay.idSize=Size.id\n"
+                + "                    inner join MauSac on ChiTietGiay.idMauSac=MauSac.id\n"
+                + "                     inner join HoaDonChiTiet on ChiTietGiay.id=HoaDonChiTiet.idChiTietGiay\n"
+                + "               	inner join HoaDon on HoaDonChiTiet.idHoaDon=HoaDon.id\n"
+                + "			where ngayTao=CONCAT(Year(GETDATE()),'-',Month(GETDATE()),'-',DAY(GETDATE()))\n"
+                + "                             Group by maGiay,tenGiay,tenMauSac,Size,tenChatLieu,ChiTietGiay.soLuong,donGia,ngayTao";
         ResultSet rs = JDBC_HELPER.selectTongQuat(sql);
         try {
             while (rs.next()) {
@@ -42,13 +41,12 @@ public class ThongKe_Resp {
 
     public static List<ThongKe_ViewModel> getAll() {
         List<ThongKe_ViewModel> list = new ArrayList<>();
-        String sql = "	 select Giay.maGiay,tenGiay,tenMauSac,Size,tenChatLieu,ChiTietGiay.soLuong,donGia,sum(HoaDonChiTiet.soLuong) as'So luong ban',sum(donGia*HoaDonChiTiet.soLuong) as 'Doanh thu',ngayTao from ChiTietGiay inner join ChatLieu on ChiTietGiay.idChatLieu=ChatLieu.id\n"
-                + "               			  inner join Size on ChiTietGiay.idSize=Size.id\n"
-                + "               					  inner join Giay on ChiTietGiay.idGiay=Giay.id\n"
-                + "                						  inner join MauSac on ChiTietGiay.idMauSac=MauSac.id\n"
-                + "                						  inner join HoaDonChiTiet on ChiTietGiay.id=HoaDonChiTiet.idChiTietGiay\n"
-                + "										  inner join HoaDon on HoaDonChiTiet.idHoaDon=HoaDon.id\n"
-                + "                Group by Giay.maGiay,tenGiay,tenMauSac,Size,tenChatLieu,ChiTietGiay.soLuong,donGia,ngayTao";
+        String sql = " select maGiay,tenGiay,tenMauSac,Size,tenChatLieu,ChiTietGiay.soLuong,donGia,sum(HoaDonChiTiet.soLuong) as'So luong ban',sum(donGia*HoaDonChiTiet.soLuong) as 'Doanh thu' from ChiTietGiay\n"
+                + "						left join ChatLieu on ChiTietGiay.idChatLieu=ChatLieu.id\n"
+                + "                        left join Size on ChiTietGiay.idSize=Size.id\n"
+                + "                       left  join MauSac on ChiTietGiay.idMauSac=MauSac.id\n"
+                + "                       left join HoaDonChiTiet on ChiTietGiay.id=HoaDonChiTiet.idChiTietGiay\n"
+                + "                       Group by maGiay,tenGiay,tenMauSac,Size,tenChatLieu,ChiTietGiay.soLuong,donGia";
         ResultSet rs = JDBC_HELPER.selectTongQuat(sql);
         try {
             while (rs.next()) {
@@ -62,7 +60,7 @@ public class ThongKe_Resp {
                 tk.setDonGia(rs.getDouble(7));
                 tk.setSlBan(rs.getInt(8));
                 tk.setDoanhThu(rs.getDouble(9));
-                tk.setNgaytao(rs.getString(10));
+
                 list.add(tk);
 
             }
@@ -74,15 +72,14 @@ public class ThongKe_Resp {
 
     }
 
-    public static List<ThongKe_ViewModel> getMaxSoLuongBan() {
+    public static List<ThongKe_ViewModel> getTop5SoLuongBan() {
         List<ThongKe_ViewModel> list = new ArrayList<>();
-        String sql = "select top 5 Giay.maGiay,tenGiay,tenMauSac,Size,tenChatLieu,ChiTietGiay.soLuong,donGia,sum(HoaDonChiTiet.soLuong) as'So luong ban',sum(donGia*HoaDonChiTiet.soLuong) as 'Doanh thu' from ChiTietGiay inner join ChatLieu on ChiTietGiay.idChatLieu=ChatLieu.id\n"
-                + "						  inner join Size on ChiTietGiay.idSize=Size.id\n"
-                + "						  inner join Giay on ChiTietGiay.idGiay=Giay.id\n"
-                + "						  inner join MauSac on ChiTietGiay.idMauSac=MauSac.id\n"
-                + "						  inner join HoaDonChiTiet on ChiTietGiay.id=HoaDonChiTiet.idChiTietGiay\n"
-                + "Group by Giay.maGiay,tenGiay,tenMauSac,Size,tenChatLieu,ChiTietGiay.soLuong,donGia\n"
-                + "Order by [So luong ban] desc";
+        String sql = "select top 5 maGiay,tenGiay,tenMauSac,Size,tenChatLieu,ChiTietGiay.soLuong,donGia,sum(HoaDonChiTiet.soLuong) as'So luong ban',sum(donGia*HoaDonChiTiet.soLuong) as 'Doanh thu' from ChiTietGiay inner join ChatLieu on ChiTietGiay.idChatLieu=ChatLieu.id\n"
+                + "              inner join Size on ChiTietGiay.idSize=Size.id\n"
+                + "              inner join MauSac on ChiTietGiay.idMauSac=MauSac.id\n"
+                + "              inner join HoaDonChiTiet on ChiTietGiay.id=HoaDonChiTiet.idChiTietGiay\n"
+                + "		Group by maGiay,tenGiay,tenMauSac,Size,tenChatLieu,ChiTietGiay.soLuong,donGia\n"
+                + "              Order by [So luong ban] desc";
         ResultSet rs = JDBC_HELPER.selectTongQuat(sql);
         try {
             while (rs.next()) {
@@ -107,15 +104,15 @@ public class ThongKe_Resp {
 
     }
 
-    public static List<ThongKe_ViewModel> getMaxDoanhThu() {
+    public static List<ThongKe_ViewModel> getTop5DoanhThu() {
         List<ThongKe_ViewModel> list = new ArrayList<>();
-        String sql = "select top 5 Giay.maGiay,tenGiay,tenMauSac,Size,tenChatLieu,ChiTietGiay.soLuong,donGia,sum(HoaDonChiTiet.soLuong) as'So luong ban',sum(donGia*HoaDonChiTiet.soLuong) as 'Doanh thu' from ChiTietGiay inner join ChatLieu on ChiTietGiay.idChatLieu=ChatLieu.id\n"
-                + "						  inner join Size on ChiTietGiay.idSize=Size.id\n"
-                + "						  inner join Giay on ChiTietGiay.idGiay=Giay.id\n"
-                + "						  inner join MauSac on ChiTietGiay.idMauSac=MauSac.id\n"
-                + "						  inner join HoaDonChiTiet on ChiTietGiay.id=HoaDonChiTiet.idChiTietGiay\n"
-                + "Group by Giay.maGiay,tenGiay,tenMauSac,Size,tenChatLieu,ChiTietGiay.soLuong,donGia\n"
-                + "Order by [Doanh thu] desc";
+        String sql = "select top 5 maGiay,tenGiay,tenMauSac,Size,tenChatLieu,ChiTietGiay.soLuong,donGia,sum(HoaDonChiTiet.soLuong) as'So luong ban',sum(donGia*HoaDonChiTiet.soLuong) as 'Doanh thu' from ChiTietGiay inner join ChatLieu on ChiTietGiay.idChatLieu=ChatLieu.id\n"
+                + "              inner join Size on ChiTietGiay.idSize=Size.id\n"
+                + "              \n"
+                + "              inner join MauSac on ChiTietGiay.idMauSac=MauSac.id\n"
+                + "              inner join HoaDonChiTiet on ChiTietGiay.id=HoaDonChiTiet.idChiTietGiay\n"
+                + "			  Group by maGiay,tenGiay,tenMauSac,Size,tenChatLieu,ChiTietGiay.soLuong,donGia\n"
+                + "             Order by [Doanh thu] desc";
         ResultSet rs = JDBC_HELPER.selectTongQuat(sql);
         try {
             while (rs.next()) {
@@ -142,13 +139,13 @@ public class ThongKe_Resp {
 
     public static List<ThongKe_ViewModel> getMinSoLuongTon(int soLuong) {
         List<ThongKe_ViewModel> list = new ArrayList<>();
-        String sql = "select  Giay.maGiay,tenGiay,tenMauSac,Size,tenChatLieu,ChiTietGiay.soLuong as 'Sl Ton',donGia,sum(HoaDonChiTiet.soLuong) as'So luong ban',sum(donGia*HoaDonChiTiet.soLuong) as 'Doanh thu' from ChiTietGiay inner join ChatLieu on ChiTietGiay.idChatLieu=ChatLieu.id\n"
-                + "						  inner join Size on ChiTietGiay.idSize=Size.id\n"
-                + "						  inner join Giay on ChiTietGiay.idGiay=Giay.id\n"
-                + "						  inner join MauSac on ChiTietGiay.idMauSac=MauSac.id\n"
-                + "						  inner join HoaDonChiTiet on ChiTietGiay.id=HoaDonChiTiet.idChiTietGiay\n"
-                + "						  where ChiTietGiay.soLuong<=?\n"
-                + "Group by Giay.maGiay,tenGiay,tenMauSac,Size,tenChatLieu,ChiTietGiay.soLuong,donGia order by [Sl Ton]\n";
+        String sql = "select maGiay,tenGiay,tenMauSac,Size,tenChatLieu,ChiTietGiay.soLuong,donGia,sum(HoaDonChiTiet.soLuong) as'So luong ban',sum(donGia*HoaDonChiTiet.soLuong) as 'Doanh thu' from ChiTietGiay inner join ChatLieu on ChiTietGiay.idChatLieu=ChatLieu.id\n"
+                + "              left join Size on ChiTietGiay.idSize=Size.id\n"
+                + "              \n"
+                + "              left join MauSac on ChiTietGiay.idMauSac=MauSac.id\n"
+                + "              left join HoaDonChiTiet on ChiTietGiay.id=HoaDonChiTiet.idChiTietGiay\n"
+                + "			   where ChiTietGiay.soLuong<=?\n"
+                + "			  Group by maGiay,tenGiay,tenMauSac,Size,tenChatLieu,ChiTietGiay.soLuong,donGia";
         ResultSet rs = JDBC_HELPER.selectTongQuat(sql, soLuong);
         try {
             while (rs.next()) {
@@ -218,14 +215,13 @@ public class ThongKe_Resp {
 
     public static List<ThongKe_ViewModel> getAllTHeoKhoangNgay(String n1, String n2) {
         List<ThongKe_ViewModel> list = new ArrayList<>();
-        String sql = "select Giay.maGiay,tenGiay,ChiTietGiay.soLuong,sum(HoaDonChiTiet.soLuong) as'So luong ban',sum(donGia*HoaDonChiTiet.soLuong) as 'Doanh thu', ngayTao,count(HoaDon.id) as'Số đơn hàng' from ChiTietGiay inner join ChatLieu on ChiTietGiay.idChatLieu=ChatLieu.id\n"
-                + "               					inner join Size on ChiTietGiay.idSize=Size.id\n"
-                + "                				inner join Giay on ChiTietGiay.idGiay=Giay.id\n"
-                + "               					inner join MauSac on ChiTietGiay.idMauSac=MauSac.id\n"
-                + "                				inner join HoaDonChiTiet on ChiTietGiay.id=HoaDonChiTiet.idChiTietGiay\n"
-                + "								inner join HoaDon on HoaDonChiTiet.idHoaDon=HoaDon.id\n"
-                + "			    where ngayTao>=? and ngayTao <=?\n"
-                + "                Group by Giay.maGiay,tenGiay,tenMauSac,Size,tenChatLieu,ChiTietGiay.soLuong,donGia,ngayTao";
+        String sql = "select maGiay,tenGiay,ChiTietGiay.soLuong,sum(HoaDonChiTiet.soLuong) as'So luong ban',sum(donGia*HoaDonChiTiet.soLuong) as 'Doanh thu', ngayTao,count(HoaDon.id) as'Số đơn hàng' from ChiTietGiay inner join ChatLieu on ChiTietGiay.idChatLieu=ChatLieu.id\n"
+                + "                         inner join Size on ChiTietGiay.idSize=Size.id\n"
+                + "                         inner join MauSac on ChiTietGiay.idMauSac=MauSac.id\n"
+                + "                         inner join HoaDonChiTiet on ChiTietGiay.id=HoaDonChiTiet.idChiTietGiay\n"
+                + "               			inner join HoaDon on HoaDonChiTiet.idHoaDon=HoaDon.id\n"
+                + "               		    where ngayTao>=? and ngayTao <=?\n"
+                + "                        Group by maGiay,tenGiay,tenMauSac,Size,tenChatLieu,ChiTietGiay.soLuong,donGia,ngayTao";
         ResultSet rs = JDBC_HELPER.selectTongQuat(sql, n1, n2);
         try {
             while (rs.next()) {
@@ -249,14 +245,13 @@ public class ThongKe_Resp {
 
     public static List<ThongKe_ViewModel> getAllTHeoNam(String nam) {
         List<ThongKe_ViewModel> list = new ArrayList<>();
-        String sql = "select Giay.maGiay,tenGiay,ChiTietGiay.soLuong,sum(HoaDonChiTiet.soLuong) as'So luong ban',sum(donGia*HoaDonChiTiet.soLuong) as 'Doanh thu', ngayTao,count(HoaDon.id) as'Số đơn hàng' from ChiTietGiay inner join ChatLieu on ChiTietGiay.idChatLieu=ChatLieu.id\n"
-                + "                         					inner join Size on ChiTietGiay.idSize=Size.id\n"
-                + "                           				inner join Giay on ChiTietGiay.idGiay=Giay.id\n"
-                + "                           					inner join MauSac on ChiTietGiay.idMauSac=MauSac.id\n"
-                + "                              				inner join HoaDonChiTiet on ChiTietGiay.id=HoaDonChiTiet.idChiTietGiay\n"
-                + "               						inner join HoaDon on HoaDonChiTiet.idHoaDon=HoaDon.id\n"
-                + "              		    where YEAR(ngayTao)=?\n"
-                + "                             Group by Giay.maGiay,tenGiay,tenMauSac,Size,tenChatLieu,ChiTietGiay.soLuong,donGia,ngayTao";
+        String sql = "select maGiay,tenGiay,ChiTietGiay.soLuong,sum(HoaDonChiTiet.soLuong) as'So luong ban',sum(donGia*HoaDonChiTiet.soLuong) as 'Doanh thu', ngayTao,count(HoaDon.id) as'Số đơn hàng' from ChiTietGiay inner join ChatLieu on ChiTietGiay.idChatLieu=ChatLieu.id\n"
+                + "       	inner join Size on ChiTietGiay.idSize=Size.id\n"
+                + "        inner join MauSac on ChiTietGiay.idMauSac=MauSac.id\n"
+                + "        inner join HoaDonChiTiet on ChiTietGiay.id=HoaDonChiTiet.idChiTietGiay\n"
+                + "        inner join HoaDon on HoaDonChiTiet.idHoaDon=HoaDon.id\n"
+                + "         where YEAR(ngayTao)=?\n"
+                + "          Group by maGiay,tenGiay,tenMauSac,Size,tenChatLieu,ChiTietGiay.soLuong,donGia,ngayTao";
         ResultSet rs = JDBC_HELPER.selectTongQuat(sql, nam);
         try {
             while (rs.next()) {
