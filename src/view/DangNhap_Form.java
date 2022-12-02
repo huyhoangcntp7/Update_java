@@ -16,7 +16,8 @@ public class DangNhap_Form extends javax.swing.JFrame {
     public DangNhap_Form() {
         initComponents();
         this.setLocationRelativeTo(null);
-
+ txtEmail.setText("nam@gmail.com");
+ txtMatKHau.setText("1");
     }
 
     public void resetLabel() {
@@ -66,11 +67,11 @@ public class DangNhap_Form extends javax.swing.JFrame {
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/Login-Form.png"))); // NOI18N
-        getContentPane().add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 4, 1010, -1));
+        getContentPane().add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 1030, -1));
 
         txtEmail.setBackground(new java.awt.Color(195, 191, 191));
         txtEmail.setBorder(null);
-        getContentPane().add(txtEmail, new org.netbeans.lib.awtextra.AbsoluteConstraints(530, 184, 320, 38));
+        getContentPane().add(txtEmail, new org.netbeans.lib.awtextra.AbsoluteConstraints(530, 180, 320, 38));
 
         lblDangNhap.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
@@ -79,21 +80,23 @@ public class DangNhap_Form extends javax.swing.JFrame {
         });
         getContentPane().add(lblDangNhap, new org.netbeans.lib.awtextra.AbsoluteConstraints(520, 424, 290, 40));
 
+        txtLoiTK.setEditable(false);
         txtLoiTK.setBackground(new java.awt.Color(248, 248, 248));
         txtLoiTK.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         txtLoiTK.setForeground(new java.awt.Color(255, 51, 51));
         txtLoiTK.setBorder(null);
         getContentPane().add(txtLoiTK, new org.netbeans.lib.awtextra.AbsoluteConstraints(460, 230, 320, 20));
 
+        txtLoiMK.setEditable(false);
         txtLoiMK.setBackground(new java.awt.Color(248, 248, 248));
         txtLoiMK.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         txtLoiMK.setForeground(new java.awt.Color(255, 51, 51));
         txtLoiMK.setBorder(null);
-        getContentPane().add(txtLoiMK, new org.netbeans.lib.awtextra.AbsoluteConstraints(460, 362, 320, 20));
+        getContentPane().add(txtLoiMK, new org.netbeans.lib.awtextra.AbsoluteConstraints(460, 360, 320, 20));
 
         txtMatKHau.setBackground(new java.awt.Color(195, 191, 191));
         txtMatKHau.setBorder(null);
-        getContentPane().add(txtMatKHau, new org.netbeans.lib.awtextra.AbsoluteConstraints(530, 320, 320, 30));
+        getContentPane().add(txtMatKHau, new org.netbeans.lib.awtextra.AbsoluteConstraints(530, 315, 320, 30));
 
         lblThoat.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
@@ -111,7 +114,7 @@ public class DangNhap_Form extends javax.swing.JFrame {
                 JOptionPane.showMessageDialog(this, "Dang nhap thanh cong");
                 String tenNv = dangNhap_Serv.getThongTin(txtEmail.getText(), String.valueOf(txtMatKHau.getPassword())).getTenNV();
                 Menu m = new Menu();
-                m.txtNhanvien.setText(tenNv);
+                m.txtTenNhanVien.setText(tenNv);
                 m.setVisible(true);
 
             } else {

@@ -4,13 +4,13 @@ public class ThongKe_ViewModel {
 
     private String maSp, tenSp, mau, size, chatLieu;
     private int slTon, slBan;
-    private double donGia, doanhThu;
-    private String ngaytao;
+    private double donGia, doanhThu, tienmat, tienkhac, tiengiamgia,gianhap;
+    private String ngaytao,namBH;
 
     public ThongKe_ViewModel() {
     }
 
-    public ThongKe_ViewModel(String maSp, String tenSp, String mau, String size, String chatLieu, int slTon, int slBan, double donGia, double doanhThu, String ngaytao) {
+    public ThongKe_ViewModel(String maSp, String tenSp, String mau, String size, String chatLieu, int slTon, int slBan, double donGia, double doanhThu, double tienmat, double tienkhac, double tiengiamgia, double gianhap, String ngaytao, String namBH) {
         this.maSp = maSp;
         this.tenSp = tenSp;
         this.mau = mau;
@@ -18,13 +18,61 @@ public class ThongKe_ViewModel {
         this.chatLieu = chatLieu;
         this.slTon = slTon;
         this.slBan = slBan;
-        
         this.donGia = donGia;
         this.doanhThu = doanhThu;
+        this.tienmat = tienmat;
+        this.tienkhac = tienkhac;
+        this.tiengiamgia = tiengiamgia;
+        this.gianhap = gianhap;
         this.ngaytao = ngaytao;
+        this.namBH = namBH;
     }
 
-  
+    public String getNamBH() {
+        return namBH;
+    }
+
+    public void setNamBH(String namBH) {
+        this.namBH = namBH;
+    }
+
+   
+
+    public double getGianhap() {
+        return gianhap;
+    }
+
+    public void setGianhap(double gianhap) {
+        this.gianhap = gianhap;
+    }
+
+    
+
+    
+
+    public double getTienmat() {
+        return tienmat;
+    }
+
+    public void setTienmat(double tienmat) {
+        this.tienmat = tienmat;
+    }
+
+    public double getTienkhac() {
+        return tienkhac;
+    }
+
+    public void setTienkhac(double tienkhac) {
+        this.tienkhac = tienkhac;
+    }
+
+    public double getTiengiamgia() {
+        return tiengiamgia;
+    }
+
+    public void setTiengiamgia(double tiengiamgia) {
+        this.tiengiamgia = tiengiamgia;
+    }
 
     public String getMaSp() {
         return maSp;
@@ -105,8 +153,5 @@ public class ThongKe_ViewModel {
     public void setNgaytao(String ngaytao) {
         this.ngaytao = ngaytao;
     }
-
-   
-    
 
 }
