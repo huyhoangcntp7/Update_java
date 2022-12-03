@@ -17,10 +17,10 @@ import java.util.logging.Logger;
  */
 public class DBContext {
     private static final String USERNAME = "sa";
-    private static final String PASSWORD = "1";
+    private static final String PASSWORD = "cuong2003";
     private static final String SERVER = "localhost";
     private static final String PORT = "1433";
-    private static final String DATABASE_NAME = "DA1_GiayRIU";
+    private static final String DATABASE_NAME = "DA1_GiayRIUU4";
     private static final boolean USING_SSL = false;
     
     private static String CONNECT_STRING;

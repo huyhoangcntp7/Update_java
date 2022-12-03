@@ -542,10 +542,7 @@
                               <Group type="103" groupAlignment="0" attributes="0">
                                   <EmptySpace min="0" pref="128" max="32767" attributes="0"/>
                                   <Group type="103" rootIndex="1" groupAlignment="0" attributes="0">
-                                      <Group type="102" alignment="0" attributes="0">
-                                          <Component id="scpTao" min="-2" pref="125" max="-2" attributes="0"/>
-                                          <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
-                                      </Group>
+                                      <Component id="scpTao" alignment="0" pref="128" max="32767" attributes="0"/>
                                   </Group>
                               </Group>
                             </DimensionLayout>
@@ -623,12 +620,9 @@
                             </DimensionLayout>
                             <DimensionLayout dim="1">
                               <Group type="103" groupAlignment="0" attributes="0">
-                                  <EmptySpace min="0" pref="131" max="32767" attributes="0"/>
+                                  <EmptySpace min="0" pref="128" max="32767" attributes="0"/>
                                   <Group type="103" rootIndex="1" groupAlignment="0" attributes="0">
-                                      <Group type="102" alignment="0" attributes="0">
-                                          <Component id="scpGiao" min="-2" pref="131" max="-2" attributes="0"/>
-                                          <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
-                                      </Group>
+                                      <Component id="scpGiao" alignment="0" pref="128" max="32767" attributes="0"/>
                                   </Group>
                               </Group>
                             </DimensionLayout>
@@ -1168,7 +1162,6 @@
                                 </Component>
                                 <Component class="javax.swing.JTextField" name="txtKhuyenMaiThemTQ">
                                   <Properties>
-                                    <Property name="editable" type="boolean" value="false"/>
                                     <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
                                       <Color blue="ee" green="ee" red="ee" type="rgb"/>
                                     </Property>

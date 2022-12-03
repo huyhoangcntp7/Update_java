@@ -1076,9 +1076,7 @@ public class Menu extends javax.swing.JFrame implements Runnable, ThreadFactory 
             jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGap(0, 128, Short.MAX_VALUE)
             .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addGroup(jPanel5Layout.createSequentialGroup()
-                    .addComponent(scpTao, javax.swing.GroupLayout.PREFERRED_SIZE, 125, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGap(0, 0, Short.MAX_VALUE)))
+                .addComponent(scpTao, javax.swing.GroupLayout.DEFAULT_SIZE, 128, Short.MAX_VALUE))
         );
 
         tbbTao.addTab("HĐ Tạo", jPanel5);
@@ -1130,11 +1128,9 @@ public class Menu extends javax.swing.JFrame implements Runnable, ThreadFactory 
         );
         jPanel6Layout.setVerticalGroup(
             jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 131, Short.MAX_VALUE)
+            .addGap(0, 128, Short.MAX_VALUE)
             .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addGroup(jPanel6Layout.createSequentialGroup()
-                    .addComponent(scpGiao, javax.swing.GroupLayout.PREFERRED_SIZE, 131, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGap(0, 0, Short.MAX_VALUE)))
+                .addComponent(scpGiao, javax.swing.GroupLayout.DEFAULT_SIZE, 128, Short.MAX_VALUE))
         );
 
         tbbTao.addTab("HĐ Đang Giao", jPanel6);
@@ -1253,7 +1249,7 @@ public class Menu extends javax.swing.JFrame implements Runnable, ThreadFactory 
                 .addContainerGap()
                 .addComponent(txtNgayTim, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(tbbTao, javax.swing.GroupLayout.DEFAULT_SIZE, 155, Short.MAX_VALUE)
+                .addComponent(tbbTao, javax.swing.GroupLayout.PREFERRED_SIZE, 155, Short.MAX_VALUE)
                 .addContainerGap())
         );
 
@@ -1315,7 +1311,6 @@ public class Menu extends javax.swing.JFrame implements Runnable, ThreadFactory 
         jLabel64.setFont(new java.awt.Font("Times New Roman", 1, 14)); // NOI18N
         jLabel64.setText("Giảm giá ");
 
-        txtKhuyenMaiThemTQ.setEditable(false);
         txtKhuyenMaiThemTQ.setBackground(new java.awt.Color(238, 238, 238));
         txtKhuyenMaiThemTQ.setFont(new java.awt.Font("Times New Roman", 0, 13)); // NOI18N
         txtKhuyenMaiThemTQ.setHorizontalAlignment(javax.swing.JTextField.CENTER);
@@ -1923,7 +1918,7 @@ public class Menu extends javax.swing.JFrame implements Runnable, ThreadFactory 
             jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel7Layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jPanel9, javax.swing.GroupLayout.DEFAULT_SIZE, 416, Short.MAX_VALUE)
+                .addComponent(jPanel9, javax.swing.GroupLayout.PREFERRED_SIZE, 416, Short.MAX_VALUE)
                 .addContainerGap())
         );
         jPanel7Layout.setVerticalGroup(

@@ -16,8 +16,8 @@ public class DangNhap_Form extends javax.swing.JFrame {
     public DangNhap_Form() {
         initComponents();
         this.setLocationRelativeTo(null);
- txtEmail.setText("nam@gmail.com");
- txtMatKHau.setText("1");
+ txtEmail.setText("ducNam@gmail.com");
+ txtMatKHau.setText("nam2003");
     }
 
     public void resetLabel() {
